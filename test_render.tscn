@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cegytqj2kckm"]
+
+[ext_resource type="Script" uid="uid://hjnay6b1lv50" path="res://follow_mouse.gd" id="1_dxa44"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_37ang"]
+size = Vector2(64, 64)
+
+[node name="TestRender" type="Node2D" unique_id=347672163]
+
+[node name="FollowMouse" type="Sprite2D" parent="." unique_id=721743494]
+texture = SubResource("PlaceholderTexture2D_37ang")
+region_rect = Rect2(0, 0, 64, 64)
+script = ExtResource("1_dxa44")
