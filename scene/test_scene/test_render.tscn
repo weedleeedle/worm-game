@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://cegytqj2kckm"]
+[gd_scene format=3 uid="uid://c7tmk57i7qkyj"]
 
-[ext_resource type="Script" uid="uid://hjnay6b1lv50" path="res://follow_mouse.gd" id="1_dxa44"]
+[ext_resource type="Script" uid="uid://hjnay6b1lv50" path="res://scene/test_scene/follow_mouse.gd" id="1_r1yla"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_37ang"]
 size = Vector2(64, 64)
@@ -10,4 +10,4 @@ size = Vector2(64, 64)
 [node name="FollowMouse" type="Sprite2D" parent="." unique_id=721743494]
 texture = SubResource("PlaceholderTexture2D_37ang")
 region_rect = Rect2(0, 0, 64, 64)
-script = ExtResource("1_dxa44")
+script = ExtResource("1_r1yla")

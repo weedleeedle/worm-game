@@ -3,8 +3,6 @@
         position: fixed;
         top: 0px;
         left: 0px;
-        width: 100%;
-        height: 100%;
     }
 </style>
 
@@ -14,5 +12,7 @@
 <script>
     var engine = new Engine($GODOT_CONFIG);
     const canvasElement = document.querySelector("#game-canvas");
+    canvasElement.width = window.innerWidth;
+    canvasElement.height = window.innerHeight;
     engine.startGame({canvas: canvasElement, canvasResizePolicy: 0, executable: "/worm_game/worm_game"});
 </script>
