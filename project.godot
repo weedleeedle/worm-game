@@ -11,9 +11,12 @@ config_version=5
 [application]
 
 config/name="worm"
-run/main_scene="uid://c7tmk57i7qkyj"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+BodyFactory="*uid://c4tu3esi76bw7"
 
 [display]
 

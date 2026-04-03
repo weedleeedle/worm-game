@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c4tu3esi76bw7"]
+
+[ext_resource type="Script" uid="uid://b4mmokhriq1cd" path="res://component/body_factory/body_factory.gd" id="1_vby0q"]
+
+[node name="BodyFactory" type="Node" unique_id=1871543605]
+script = ExtResource("1_vby0q")
+body_segment_file = "uid://dacqq0ywykqud"

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://2tkpim468r67"]
+
+[ext_resource type="Script" uid="uid://cfpurmy6js266" path="res://scene/test_scene/test_scene.gd" id="1_au7ee"]
+[ext_resource type="Script" uid="uid://bubfxjvewqaj8" path="res://src/segment_constraints/segment_constraint.gd" id="2_t7gac"]
+[ext_resource type="Script" uid="uid://df5fvyk41gl1y" path="res://src/segment_constraints/distance_constraint.gd" id="3_yi5xj"]
+
+[sub_resource type="Resource" id="Resource_pvdxb"]
+script = ExtResource("3_yi5xj")
+max_distance = 20.0
+metadata/_custom_type_script = "uid://df5fvyk41gl1y"
+
+[node name="TestScene" type="Node" unique_id=1482380878]
+script = ExtResource("1_au7ee")
+constraints = Array[ExtResource("2_t7gac")]([SubResource("Resource_pvdxb")])
