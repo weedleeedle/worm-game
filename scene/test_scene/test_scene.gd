@@ -4,5 +4,5 @@ extends Node
 
 func _ready() -> void:
 	# Create a worm!!	
-	var worm := BodyFactory.create_worm(10, constraints)
+	var worm := BodyFactory.create_worm(20, constraints)
 	add_child(worm)
