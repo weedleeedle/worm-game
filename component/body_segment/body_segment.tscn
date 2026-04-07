@@ -5,6 +5,5 @@
 [node name="BodySegment" type="Node2D" unique_id=1445569697]
 top_level = true
 script = ExtResource("1_nisd8")
-radius = 10.0
 
 [node name="TestPolygon" type="Polygon2D" parent="." unique_id=867009095]

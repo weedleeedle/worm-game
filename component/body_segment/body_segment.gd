@@ -3,6 +3,7 @@ class_name BodySegment
 extends Node2D
 
 ## The size of this segment
+
 @export var radius: float = 50.0
 
 ## The max move speed for the head
@@ -17,7 +18,8 @@ extends Node2D
 @onready var polygon: Polygon2D = $TestPolygon
 
 func _ready() -> void:
-	_generate_circle()
+	pass
+	#_generate_circle()
 
 func _process(delta: float) -> void:
 	if is_head():
@@ -42,6 +44,22 @@ func connect_child_segment(segment: BodySegment) -> void:
 	if segment.get_parent():
 		segment.get_parent().remove_child(segment)
 	add_child(segment)
+
+## Returns the direction of the head
+func head_vector() -> Vector2:
+	if !parent_segment:
+		push_error("Attempted to get parent_segment of head body segment")
+		return Vector2.ZERO
+
+	return parent_segment.global_position - global_position
+
+## Returns the direction of the tail
+func tail_vector() -> Vector2:
+	if !child_segment:
+		push_error("Attempted to get child_segment of tail body segment")
+		return Vector2.ZERO
+
+	return child_segment.global_position - global_position
 
 func _generate_circle() -> void:
 	const NUM_POINTS := 30

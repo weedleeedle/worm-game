@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b2w2klrgocrit"]
+
+[ext_resource type="Script" uid="uid://7iui5naexg4b" path="res://component/body_debug_renderer/body_debug_renderer.gd" id="1_mp47e"]
+
+[node name="BodyDebugRenderer" type="Node2D" unique_id=1142928428]
+script = ExtResource("1_mp47e")
+body_point_file = "uid://dlihliw6nl1ju"

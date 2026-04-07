@@ -23,9 +23,7 @@ func apply(on: BodySegment) -> void:
 	var vec_B_to_C := node_pos_C - node_pos_B
 
 	var angle_BA_BC := vec_B_to_A.angle_to(vec_B_to_C)
-	print("Angle: ", rad_to_deg(angle_BA_BC))
 	if absf(angle_BA_BC) < deg_to_rad(min_angle):
-		print("Too steep!")
 		# Clamp the angle
 		var new_vec_B_to_C := vec_B_to_A.rotated(deg_to_rad(signf(angle_BA_BC)*min_angle)).normalized() * vec_B_to_C.length()
 		on.global_position = node_pos_B + new_vec_B_to_C

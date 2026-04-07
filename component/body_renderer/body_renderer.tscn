@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dn6j6tynciqx7"]
+
+[ext_resource type="Script" uid="uid://du0tq4ab8ru7" path="res://component/body_renderer/body_renderer.gd" id="1_02br5"]
+
+[node name="BodyRenderer" type="Node2D" unique_id=119475448]
+script = ExtResource("1_02br5")
+outline_color = Color(0, 0.3254902, 1, 1)
+fill_color = Color(0.30659404, 0.51685184, 1, 1)
+outline_width = 5.0
