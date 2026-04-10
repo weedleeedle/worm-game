@@ -11,10 +11,13 @@ var point_sprites: Array[Node2D]
 var num_points := -1
 
 func _process(delta: float) -> void:
+	return
+
+	# Ignore all of this for now lmao
 	if body_renderer == null:
 		return
 
-	var points := body_renderer.fill_points
+	var points = body_renderer.fill_points
 	# Figure out how many points we have and generate our points if we haven't yet
 	if num_points == -1:
 		num_points = points.size()
