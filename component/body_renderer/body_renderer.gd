@@ -3,7 +3,7 @@ class_name BodyRenderer
 extends Node2D
 
 ## How many points to put on the head and tail. This number is doubled for raisins.
-static var END_RESOLUTION: int = 3
+static var END_RESOLUTION: int = 6
 static var ANGLE_INCREMENT: float = deg_to_rad(180.0/END_RESOLUTION)
 
 @export var outline_color: Color
@@ -32,30 +32,29 @@ func _draw() -> void:
 	draw_segment_head(body)
 
 func draw_segment_head(segment: BodySegment) -> void:
-
 	var head_vector: Vector2
 	# If we ever have a one-segment body, we gotta do things a lil differently
 	if segment.child_segment == null:
 		# We can just point it straight up for RAISINS
 		head_vector = Vector2.UP
 	else:
-		# Head vector points in opposite direction of the tail.
-		head_vector = segment.tail_vector().rotated(deg_to_rad(180)).normalized()
+		head_vector = segment.tail_vector().normalized()
 	
 	# Generate points!
 	var points: PackedVector2Array = []
 	var outline_points: PackedVector2Array = []
-	for i in END_RESOLUTION:
-		var point = head_vector.rotated(deg_to_rad(90) + ANGLE_INCREMENT * i) * segment.radius
-		var outline_point = head_vector.rotated(deg_to_rad(90) + ANGLE_INCREMENT * i) * (segment.radius + outline_width)
+	for i in END_RESOLUTION+1:
+		var point = head_vector.rotated(deg_to_rad(90) + ANGLE_INCREMENT * i) * segment.radius + segment.global_position
+		var outline_point = head_vector.rotated(deg_to_rad(90) + ANGLE_INCREMENT * i) * (segment.radius + outline_width) + segment.global_position
 		points.push_back(point) 
 		outline_points.push_back(outline_point)
 
-	draw_colored_polygon(points, fill_color)
 	draw_colored_polygon(outline_points, outline_color)
+	draw_colored_polygon(points, fill_color)
 
 	# Now we draw the rest of the fucking owl
-	draw_segment(segment.child_segment)
+	# We actually want to redraw this segment as a regular segment, not just a head segment.
+	draw_segment(segment)
 
 func draw_segment(segment: BodySegment) -> void:
 	if segment.child_segment == null:
@@ -70,11 +69,8 @@ func draw_segment(segment: BodySegment) -> void:
 	var next_points_outline := _get_perpendicular_points(next_segment, next_segment.radius + outline_width)
 	self_points.append_array(next_points)
 	self_points_outline.append_array(next_points_outline)
-	if self_points.is_empty():
-		print("BUH??")
-		print(segment)
-	draw_colored_polygon(self_points, fill_color)
-	draw_colored_polygon(self_points_outline, outline_color)
+	draw_colored_polygon(Geometry2D.convex_hull(self_points_outline), outline_color)
+	draw_colored_polygon(Geometry2D.convex_hull(self_points), fill_color)
 
 	draw_segment(next_segment)
 
@@ -86,23 +82,25 @@ func draw_segment_tail(segment: BodySegment) -> void:
 		tail_vector = Vector2.DOWN
 	else:
 		# Head vector points in opposite direction of the tail.
-		tail_vector = segment.head_vector().rotated(deg_to_rad(180)).normalized()
+		tail_vector = segment.head_vector().normalized()
 
 	var points: PackedVector2Array = []
 	var outline_points: PackedVector2Array = []
-	for i in END_RESOLUTION:
-		var point = tail_vector.rotated(deg_to_rad(90) + ANGLE_INCREMENT * i) * segment.radius
-		var outline_point = tail_vector.rotated(deg_to_rad(90) + ANGLE_INCREMENT * i) * (segment.radius + outline_width)
+	for i in END_RESOLUTION+1:
+		var point = tail_vector.rotated(deg_to_rad(90) + ANGLE_INCREMENT * i) * segment.radius + segment.global_position
+		var outline_point = tail_vector.rotated(deg_to_rad(90) + ANGLE_INCREMENT * i) * (segment.radius + outline_width) + segment.global_position
 		points.push_back(point) 
 		outline_points.push_back(outline_point)
 
-	draw_colored_polygon(points, fill_color)
 	draw_colored_polygon(outline_points, outline_color)
+	draw_colored_polygon(points, fill_color)
 
 # Returns an array of ONLY TWO VECTORS!!!!!!!
 func _get_perpendicular_points(segment: BodySegment, distance: float) -> PackedVector2Array:
-	if segment.parent_segment == null:
-		push_error("Attempted to get perpendicular points for body segment without a head vector")
+	if segment.parent_segment != null:
+		return [segment.head_vector().rotated(deg_to_rad(-90)).normalized() * distance + segment.global_position, segment.head_vector().rotated(deg_to_rad(90)).normalized() * distance + segment.global_position]
+	elif segment.child_segment != null:
+		return [segment.tail_vector().rotated(deg_to_rad(-90)).normalized() * distance + segment.global_position, segment.tail_vector().rotated(deg_to_rad(90)).normalized() * distance + segment.global_position]
+	else:
+		push_error("Body part had neither a head vector nor a tail vector to render against!")
 		return []
-
-	return [segment.head_vector().rotated(deg_to_rad(-90)).normalized() * distance, segment.head_vector().rotated(deg_to_rad(90)).normalized() * distance]
