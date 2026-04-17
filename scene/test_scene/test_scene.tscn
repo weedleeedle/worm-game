@@ -1,24 +1,33 @@
 [gd_scene format=3 uid="uid://2tkpim468r67"]
 
 [ext_resource type="Script" uid="uid://cfpurmy6js266" path="res://scene/test_scene/test_scene.gd" id="1_au7ee"]
+[ext_resource type="Script" uid="uid://cfebchxkwkr7s" path="res://src/iterators/expression_iterator.gd" id="2_4vep2"]
 [ext_resource type="Script" uid="uid://bubfxjvewqaj8" path="res://src/segment_constraints/segment_constraint.gd" id="2_t7gac"]
 [ext_resource type="Script" uid="uid://df5fvyk41gl1y" path="res://src/segment_constraints/distance_constraint.gd" id="3_yi5xj"]
 [ext_resource type="Script" uid="uid://bveufj3y2tke7" path="res://src/segment_constraints/angle_constraint.gd" id="4_t7gac"]
 [ext_resource type="PackedScene" uid="uid://dn6j6tynciqx7" path="res://component/body_renderer/body_renderer.tscn" id="5_yi5xj"]
 [ext_resource type="PackedScene" uid="uid://b2w2klrgocrit" path="res://component/body_debug_renderer/body_debug_renderer.tscn" id="6_pvdxb"]
 
+[sub_resource type="Resource" id="Resource_vki5a"]
+script = ExtResource("2_4vep2")
+expression = "50-i"
+end_range = 50.0
+steps = 75
+metadata/_custom_type_script = "uid://cfebchxkwkr7s"
+
 [sub_resource type="Resource" id="Resource_pvdxb"]
 script = ExtResource("3_yi5xj")
-max_distance = 50.0
+max_distance = 5.0
 metadata/_custom_type_script = "uid://df5fvyk41gl1y"
 
 [sub_resource type="Resource" id="Resource_yi5xj"]
 script = ExtResource("4_t7gac")
-min_angle = 60.0
+min_angle = 175.0
 metadata/_custom_type_script = "uid://bveufj3y2tke7"
 
-[node name="TestScene" type="Node" unique_id=1482380878]
+[node name="s" type="Node" unique_id=1482380878]
 script = ExtResource("1_au7ee")
+iterator = SubResource("Resource_vki5a")
 constraints = Array[ExtResource("2_t7gac")]([SubResource("Resource_pvdxb"), SubResource("Resource_yi5xj")])
 
 [node name="BodyRenderer" parent="." unique_id=119475448 instance=ExtResource("5_yi5xj")]

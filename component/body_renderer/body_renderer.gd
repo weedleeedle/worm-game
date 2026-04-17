@@ -3,7 +3,7 @@ class_name BodyRenderer
 extends Node2D
 
 ## How many points to put on the head and tail. This number is doubled for raisins.
-static var END_RESOLUTION: int = 6
+static var END_RESOLUTION: int = 16
 static var ANGLE_INCREMENT: float = deg_to_rad(180.0/END_RESOLUTION)
 
 @export var outline_color: Color
