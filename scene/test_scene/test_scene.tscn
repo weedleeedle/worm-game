@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://2tkpim468r67"]
 
 [ext_resource type="Script" uid="uid://cfpurmy6js266" path="res://scene/test_scene/test_scene.gd" id="1_au7ee"]
-[ext_resource type="Script" uid="uid://cfebchxkwkr7s" path="res://src/iterators/expression_iterator.gd" id="2_4vep2"]
+[ext_resource type="Resource" uid="uid://dnw4yw0k2pb2y" path="res://resource/iterators/worm_on_a_string.tres" id="2_a5wqp"]
 [ext_resource type="Script" uid="uid://bubfxjvewqaj8" path="res://src/segment_constraints/segment_constraint.gd" id="2_t7gac"]
 [ext_resource type="Script" uid="uid://df5fvyk41gl1y" path="res://src/segment_constraints/distance_constraint.gd" id="3_yi5xj"]
 [ext_resource type="Script" uid="uid://bveufj3y2tke7" path="res://src/segment_constraints/angle_constraint.gd" id="4_t7gac"]
@@ -10,21 +10,14 @@
 [ext_resource type="Script" uid="uid://cai3g7scdoai3" path="res://src/outline/outline.gd" id="7_a5wqp"]
 [ext_resource type="Script" uid="uid://btng3safvwlh7" path="res://src/outline/render_set.gd" id="8_r8f76"]
 
-[sub_resource type="Resource" id="Resource_vki5a"]
-script = ExtResource("2_4vep2")
-expression = "50-i"
-end_range = 50.0
-steps = 75
-metadata/_custom_type_script = "uid://cfebchxkwkr7s"
-
 [sub_resource type="Resource" id="Resource_pvdxb"]
 script = ExtResource("3_yi5xj")
-max_distance = 5.0
+max_distance = 6.0
 metadata/_custom_type_script = "uid://df5fvyk41gl1y"
 
 [sub_resource type="Resource" id="Resource_yi5xj"]
 script = ExtResource("4_t7gac")
-min_angle = 175.0
+min_angle = 176.5
 metadata/_custom_type_script = "uid://bveufj3y2tke7"
 
 [sub_resource type="Resource" id="Resource_rdy5v"]
@@ -33,21 +26,15 @@ outline_color = Color(1, 1, 1, 1)
 outline_width = 5.0
 metadata/_custom_type_script = "uid://cai3g7scdoai3"
 
-[sub_resource type="Resource" id="Resource_a5wqp"]
-script = ExtResource("7_a5wqp")
-outline_color = Color(1, 0.30588236, 1, 1)
-outline_width = -10.0
-metadata/_custom_type_script = "uid://cai3g7scdoai3"
-
 [sub_resource type="Resource" id="Resource_fxesv"]
 script = ExtResource("8_r8f76")
 fill_color = Color(0, 0.6469637, 0.6469637, 1)
-outlines = Array[ExtResource("7_a5wqp")]([SubResource("Resource_rdy5v"), SubResource("Resource_a5wqp")])
+outlines = Array[ExtResource("7_a5wqp")]([SubResource("Resource_rdy5v")])
 metadata/_custom_type_script = "uid://btng3safvwlh7"
 
 [node name="s" type="Node" unique_id=1482380878]
 script = ExtResource("1_au7ee")
-iterator = SubResource("Resource_vki5a")
+iterator = ExtResource("2_a5wqp")
 constraints = Array[ExtResource("2_t7gac")]([SubResource("Resource_pvdxb"), SubResource("Resource_yi5xj")])
 
 [node name="BodyRenderer" parent="." unique_id=119475448 instance=ExtResource("5_yi5xj")]

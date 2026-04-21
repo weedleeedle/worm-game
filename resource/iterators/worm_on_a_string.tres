@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ExpressionIterator" format=3 uid="uid://dnw4yw0k2pb2y"]
+
+[ext_resource type="Script" uid="uid://cfebchxkwkr7s" path="res://src/iterators/expression_iterator.gd" id="1_gtvlg"]
+
+[resource]
+script = ExtResource("1_gtvlg")
+expression = "10*pow(i+0.1,5.3)*exp(-1.7*i+0.4)"
+end_range = 10.0
+steps = 100
+metadata/_custom_type_script = "uid://cfebchxkwkr7s"

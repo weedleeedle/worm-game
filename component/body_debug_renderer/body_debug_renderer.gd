@@ -31,4 +31,3 @@ func _process(delta: float) -> void:
 
 	for i in num_points:
 		point_sprites[i].global_position = points[i]
-		print(points[i])

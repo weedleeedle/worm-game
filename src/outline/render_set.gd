@@ -15,8 +15,6 @@ extends Resource
 		# Push the fill color as an outline with 0 width to the end. Teehee!
 		value.push_back(Outline.new(fill_color, 0.0))
 		outlines = value
-		print("Outlines!")
-		print(outlines)
 
 func _init(p_fill_color := Color.WHITE, p_outlines: Array[Outline] = []) -> void:
 	fill_color = p_fill_color
