@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://bveufj3y2tke7" path="res://src/segment_constraints/angle_constraint.gd" id="4_t7gac"]
 [ext_resource type="PackedScene" uid="uid://dn6j6tynciqx7" path="res://component/body_renderer/body_renderer.tscn" id="5_yi5xj"]
 [ext_resource type="PackedScene" uid="uid://b2w2klrgocrit" path="res://component/body_debug_renderer/body_debug_renderer.tscn" id="6_pvdxb"]
+[ext_resource type="Script" uid="uid://cai3g7scdoai3" path="res://src/outline/outline.gd" id="7_a5wqp"]
+[ext_resource type="Script" uid="uid://btng3safvwlh7" path="res://src/outline/render_set.gd" id="8_r8f76"]
 
 [sub_resource type="Resource" id="Resource_vki5a"]
 script = ExtResource("2_4vep2")
@@ -25,13 +27,31 @@ script = ExtResource("4_t7gac")
 min_angle = 175.0
 metadata/_custom_type_script = "uid://bveufj3y2tke7"
 
+[sub_resource type="Resource" id="Resource_rdy5v"]
+script = ExtResource("7_a5wqp")
+outline_color = Color(1, 1, 1, 1)
+outline_width = 5.0
+metadata/_custom_type_script = "uid://cai3g7scdoai3"
+
+[sub_resource type="Resource" id="Resource_a5wqp"]
+script = ExtResource("7_a5wqp")
+outline_color = Color(1, 0.30588236, 1, 1)
+outline_width = -10.0
+metadata/_custom_type_script = "uid://cai3g7scdoai3"
+
+[sub_resource type="Resource" id="Resource_fxesv"]
+script = ExtResource("8_r8f76")
+fill_color = Color(0, 0.6469637, 0.6469637, 1)
+outlines = Array[ExtResource("7_a5wqp")]([SubResource("Resource_rdy5v"), SubResource("Resource_a5wqp")])
+metadata/_custom_type_script = "uid://btng3safvwlh7"
+
 [node name="s" type="Node" unique_id=1482380878]
 script = ExtResource("1_au7ee")
 iterator = SubResource("Resource_vki5a")
 constraints = Array[ExtResource("2_t7gac")]([SubResource("Resource_pvdxb"), SubResource("Resource_yi5xj")])
 
 [node name="BodyRenderer" parent="." unique_id=119475448 instance=ExtResource("5_yi5xj")]
-outline_color = Color(1, 1, 1, 1)
+render_properties = SubResource("Resource_fxesv")
 
 [node name="BodyDebugRenderer" parent="." unique_id=1142928428 node_paths=PackedStringArray("body_renderer") instance=ExtResource("6_pvdxb")]
 body_renderer = NodePath("../BodyRenderer")

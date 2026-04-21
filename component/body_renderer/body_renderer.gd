@@ -6,9 +6,7 @@ extends Node2D
 static var END_RESOLUTION: int = 16
 static var ANGLE_INCREMENT: float = deg_to_rad(180.0/END_RESOLUTION)
 
-@export var outline_color: Color
-@export var fill_color: Color
-@export var outline_width: float
+@export var render_properties: RenderSet
 
 @export var body: BodySegment 
 
@@ -41,16 +39,16 @@ func draw_segment_head(segment: BodySegment) -> void:
 		head_vector = segment.tail_vector().normalized()
 	
 	# Generate points!
-	var points: PackedVector2Array = []
-	var outline_points: PackedVector2Array = []
-	for i in END_RESOLUTION+1:
-		var point = head_vector.rotated(deg_to_rad(90) + ANGLE_INCREMENT * i) * segment.radius + segment.global_position
-		var outline_point = head_vector.rotated(deg_to_rad(90) + ANGLE_INCREMENT * i) * (segment.radius + outline_width) + segment.global_position
-		points.push_back(point) 
-		outline_points.push_back(outline_point)
 
-	draw_colored_polygon(outline_points, outline_color)
-	draw_colored_polygon(points, fill_color)
+	# Render a shape for each outline. These should already be in order from largest to smallest.
+	# The fill color is actually just an outline with 0 width (it's on top so it will already be filled in.)
+	var point_set: PackedVector2Array = []
+	for outline in render_properties.outlines:
+		for i in END_RESOLUTION+1:
+			var point = head_vector.rotated(deg_to_rad(90) + ANGLE_INCREMENT * i) * (segment.radius + outline.outline_width) + segment.global_position
+			point_set.push_back(point) 
+		draw_colored_polygon(point_set, outline.outline_color)
+		point_set.clear()
 
 	# Now we draw the rest of the fucking owl
 	# We actually want to redraw this segment as a regular segment, not just a head segment.
@@ -63,14 +61,11 @@ func draw_segment(segment: BodySegment) -> void:
 		return
 
 	var next_segment := segment.child_segment
-	var self_points := _get_perpendicular_points(segment, segment.radius)
-	var self_points_outline := _get_perpendicular_points(segment, segment.radius + outline_width)
-	var next_points := _get_perpendicular_points(next_segment, next_segment.radius)
-	var next_points_outline := _get_perpendicular_points(next_segment, next_segment.radius + outline_width)
-	self_points.append_array(next_points)
-	self_points_outline.append_array(next_points_outline)
-	draw_colored_polygon(Geometry2D.convex_hull(self_points_outline), outline_color)
-	draw_colored_polygon(Geometry2D.convex_hull(self_points), fill_color)
+	# Render each outline (and the fill color)
+	for outline in render_properties.outlines:
+		var point_set: PackedVector2Array = _get_perpendicular_points(segment, segment.radius + outline.outline_width)
+		point_set.append_array(_get_perpendicular_points(next_segment, next_segment.radius + outline.outline_width))
+		draw_colored_polygon(Geometry2D.convex_hull(point_set), outline.outline_color)
 
 	draw_segment(next_segment)
 
@@ -84,16 +79,13 @@ func draw_segment_tail(segment: BodySegment) -> void:
 		# Head vector points in opposite direction of the tail.
 		tail_vector = segment.head_vector().normalized()
 
-	var points: PackedVector2Array = []
-	var outline_points: PackedVector2Array = []
-	for i in END_RESOLUTION+1:
-		var point = tail_vector.rotated(deg_to_rad(90) + ANGLE_INCREMENT * i) * segment.radius + segment.global_position
-		var outline_point = tail_vector.rotated(deg_to_rad(90) + ANGLE_INCREMENT * i) * (segment.radius + outline_width) + segment.global_position
-		points.push_back(point) 
-		outline_points.push_back(outline_point)
-
-	draw_colored_polygon(outline_points, outline_color)
-	draw_colored_polygon(points, fill_color)
+	var point_set: PackedVector2Array = []
+	for outline in render_properties.outlines:
+		for i in END_RESOLUTION+1:
+			var point = tail_vector.rotated(deg_to_rad(90) + ANGLE_INCREMENT * i) * (segment.radius + outline.outline_width) + segment.global_position
+			point_set.push_back(point) 
+		draw_colored_polygon(point_set, outline.outline_color)
+		point_set.clear()
 
 # Returns an array of ONLY TWO VECTORS!!!!!!!
 func _get_perpendicular_points(segment: BodySegment, distance: float) -> PackedVector2Array:
