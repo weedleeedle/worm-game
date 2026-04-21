@@ -37,7 +37,6 @@ func next() -> IteratorReturn:
 	var width = end_range - start_range
 	var index = start_range + width * i / steps
 	var result = expression_parsed.execute([index])
-	print(result)
 	i += 1
 	return IteratorReturn.new(result)
 
