@@ -79,3 +79,13 @@ func _generate_circle() -> void:
 		points.push_back(Vector2(x,y))
 
 	polygon.polygon = points
+
+## Get the total number of body segments.
+## This is an expensive operation, it has to recurse across the entire body!
+
+## The minimum body length is 1 (one head/tail)
+func get_length() -> int:
+	if child_segment == null:
+		return 1
+	else:
+		return child_segment.get_length() + 1
