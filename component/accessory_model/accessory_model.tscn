@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://mw7v42ql5tvp"]
+
+[ext_resource type="Script" uid="uid://ibacqjl6qnb2" path="res://component/accessory_model/accessory_model.gd" id="1_514cn"]
+
+[node name="AccessoryModel" type="Node2D" unique_id=1188991309]
+script = ExtResource("1_514cn")

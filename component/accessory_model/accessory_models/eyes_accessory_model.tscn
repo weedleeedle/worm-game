@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://yjdocj0aocbt"]
+
+[ext_resource type="Script" uid="uid://ibacqjl6qnb2" path="res://component/accessory_model/accessory_model.gd" id="1_luxe8"]
+[ext_resource type="Texture2D" uid="uid://w7248u1lj084" path="res://resource/image/eye.png" id="2_t6lgc"]
+
+[node name="EyesAccessoryModel" type="Node2D" unique_id=233961757]
+script = ExtResource("1_luxe8")
+metadata/_custom_type_script = "uid://ibacqjl6qnb2"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=174584564]
+position = Vector2(0, 20)
+rotation = 1.1431906
+texture = ExtResource("2_t6lgc")
+flip_h = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1048893937]
+position = Vector2(0, -20)
+rotation = -1.1428744
+texture = ExtResource("2_t6lgc")
+flip_h = true
+flip_v = true

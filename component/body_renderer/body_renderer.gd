@@ -7,6 +7,7 @@ static var END_RESOLUTION: int = 16
 static var ANGLE_INCREMENT: float = deg_to_rad(180.0/END_RESOLUTION)
 
 @export var render_properties: RenderSet
+@export var accessories: Array[Accessory]
 
 @export var body: BodySegment 
 
@@ -28,6 +29,9 @@ func _process(_delta: float) -> void:
 
 func _draw() -> void:
 	draw_segment_head(body)
+	# Draw accessories on top of the body.
+	for accessory in accessories:
+		accessory.draw_accessory_model()
 
 func draw_segment_head(segment: BodySegment) -> void:
 	var head_vector: Vector2

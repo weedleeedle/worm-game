@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://7xguwekb8m12" path="res://component/body_debug_renderer/body_point/crosshair.svg" id="1_egf7s"]
 
 [node name="BodyPoint" type="Node2D" unique_id=1265944966]
-top_level = true
 z_index = 10
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=394731278]

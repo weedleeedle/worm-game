@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://bveufj3y2tke7" path="res://src/segment_constraints/angle_constraint.gd" id="4_t7gac"]
 [ext_resource type="PackedScene" uid="uid://dn6j6tynciqx7" path="res://component/body_renderer/body_renderer.tscn" id="5_yi5xj"]
 [ext_resource type="PackedScene" uid="uid://b2w2klrgocrit" path="res://component/body_debug_renderer/body_debug_renderer.tscn" id="6_pvdxb"]
+[ext_resource type="Script" uid="uid://bmgkh06h8vagm" path="res://src/accessories/accessory.gd" id="6_rdy5v"]
+[ext_resource type="Script" uid="uid://phelohebufk8" path="res://src/accessories/scene_accessory.gd" id="7_7kct0"]
 [ext_resource type="Script" uid="uid://cai3g7scdoai3" path="res://src/outline/outline.gd" id="7_a5wqp"]
 [ext_resource type="Script" uid="uid://btng3safvwlh7" path="res://src/outline/render_set.gd" id="8_r8f76"]
 
@@ -19,6 +21,12 @@ metadata/_custom_type_script = "uid://df5fvyk41gl1y"
 script = ExtResource("4_t7gac")
 min_angle = 176.5
 metadata/_custom_type_script = "uid://bveufj3y2tke7"
+
+[sub_resource type="Resource" id="Resource_o4lli"]
+script = ExtResource("7_7kct0")
+custom_model_scene = "uid://yjdocj0aocbt"
+placement = 0.02
+metadata/_custom_type_script = "uid://phelohebufk8"
 
 [sub_resource type="Resource" id="Resource_rdy5v"]
 script = ExtResource("7_a5wqp")
@@ -36,6 +44,7 @@ metadata/_custom_type_script = "uid://btng3safvwlh7"
 script = ExtResource("1_au7ee")
 iterator = ExtResource("2_a5wqp")
 constraints = Array[ExtResource("2_t7gac")]([SubResource("Resource_pvdxb"), SubResource("Resource_yi5xj")])
+accessories = Array[ExtResource("6_rdy5v")]([SubResource("Resource_o4lli")])
 
 [node name="BodyRenderer" parent="." unique_id=119475448 instance=ExtResource("5_yi5xj")]
 render_properties = SubResource("Resource_fxesv")

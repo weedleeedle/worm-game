@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://oabuaqbvvyjp"]
+
+[ext_resource type="Script" uid="uid://ibacqjl6qnb2" path="res://component/accessory_model/accessory_model.gd" id="1_p1s2f"]
+[ext_resource type="PackedScene" uid="uid://dlihliw6nl1ju" path="res://component/body_debug_renderer/body_point/body_point.tscn" id="2_0d0wl"]
+
+[node name="TestAccessoryModel" type="Node2D" unique_id=1340340774]
+script = ExtResource("1_p1s2f")
+metadata/_custom_type_script = "uid://ibacqjl6qnb2"
+
+[node name="BodyPoint" parent="." unique_id=1265944966 instance=ExtResource("2_0d0wl")]
