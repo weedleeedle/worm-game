@@ -2,7 +2,16 @@
 class_name ChainIterator
 extends Iterator
 
-@export var iterators: Array[Iterator]
+@export var iterators: Array[Iterator]:
+	get:
+		return iterators
+	set(value):
+		if iterators != value:
+			iterators = value
+			for iterator in iterators:
+				iterator.changed.connect(emit_changed)
+			reset()
+			emit_changed()
 
 var current_iterator := 0
 

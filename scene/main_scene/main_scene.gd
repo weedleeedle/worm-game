@@ -1,14 +1,33 @@
 extends Node2D
 
-@export var iterator: Iterator
-@export var constraint: SegmentConstraint
-@export var accessories: Array[Accessory]
-
 @onready var body_renderer: BodyRenderer = $BodyRenderer
+@onready var property_manager: PropertyManager = $PropertyManager
+
+var current_body: BodySegment
 
 func _ready() -> void:
+	current_body = generate_body(property_manager.iterator, property_manager.constraint, property_manager.accessories)
+	body_renderer.render_properties = property_manager.render_set
+
+func generate_body(iterator: Iterator, constraint: SegmentConstraint, accessories: Array[Accessory]) -> BodySegment:
 	# Create a worm!!	
-	var worm := BodyFactory.create_worm(iterator, constraint, accessories)
-	add_child(worm)
-	body_renderer.body = worm
+	var body := BodyFactory.create_body(iterator, constraint, accessories)
+	add_child(body)
+	body_renderer.body = body
 	body_renderer.accessories = accessories
+	return body
+
+# We need to completely regenerate the body anytime the iterator or accessories change.
+# We do NOT need to regenerate the body anytime the constraints change or the render set, 
+# since these are used every frame.
+#
+# (Realistically we probably don't have to regenerate the entire worm when accessories change,
+# But since they straddle the "generation" vs "rendering" stages, it's probably best to just regenerate)
+
+func _on_property_manager_iterator_changed() -> void:
+	current_body.queue_free()
+	current_body = generate_body(property_manager.iterator, property_manager.constraint, property_manager.accessories)
+
+func _on_property_manager_accessories_changed() -> void:
+	current_body.queue_free()
+	current_body = generate_body(property_manager.iterator, property_manager.constraint, property_manager.accessories)

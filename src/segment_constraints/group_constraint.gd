@@ -2,7 +2,15 @@
 class_name GroupConstraint
 extends SegmentConstraint
 
-@export var sub_constraints: Array[SegmentConstraint]
+@export var sub_constraints: Array[SegmentConstraint]:
+	get:
+		return sub_constraints
+	set(value):
+		if sub_constraints != value:
+			sub_constraints = value
+			for constraint in sub_constraints:
+				constraint.changed.connect(emit_changed)
+			emit_changed()
 
 func apply(on: BodySegment) -> void:
 	for constraint in sub_constraints:

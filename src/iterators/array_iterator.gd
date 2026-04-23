@@ -2,7 +2,15 @@
 class_name ArrayIterator
 extends Iterator
 
-@export var array: Array[float]
+@export var array: Array[float]:
+	get:
+		return array
+	set(value):
+		if array != value:
+			array = value
+			reset()
+			emit_changed()
+
 var index: int = 0
 
 func next() -> IteratorReturn:

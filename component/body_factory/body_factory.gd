@@ -4,7 +4,7 @@ extends Node
 @export_file("*.tscn") var body_segment_file: String
 @onready var body_segment_scene: PackedScene = load(body_segment_file)
 
-func create_worm(body_iterator: Iterator, constraint: SegmentConstraint, accessories: Array[Accessory]) -> BodySegment:
+func create_body(body_iterator: Iterator, constraint: SegmentConstraint, accessories: Array[Accessory]) -> BodySegment:
 	# Create the head
 	var head: BodySegment = body_segment_scene.instantiate()
 	var iter_result := body_iterator.next()

@@ -2,7 +2,13 @@
 class_name DistanceConstraint
 extends SegmentConstraint
 
-@export var max_distance: float 
+@export var max_distance: float:
+	get:
+		return max_distance
+	set(value):
+		if max_distance != value:
+			max_distance = value
+			emit_changed()
 
 func apply(on: BodySegment) -> void:
 	# Head doesn't get any constraints

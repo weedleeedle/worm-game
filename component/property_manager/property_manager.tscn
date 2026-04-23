@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bru2tnj2ekgjo"]
+
+[ext_resource type="Script" uid="uid://q4icg0p1uw77" path="res://component/property_manager/property_manager.gd" id="1_mamj8"]
+
+[node name="PropertyManager" type="Node" unique_id=1227955740]
+script = ExtResource("1_mamj8")

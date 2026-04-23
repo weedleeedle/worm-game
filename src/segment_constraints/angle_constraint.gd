@@ -2,7 +2,13 @@
 class_name AngleConstraint
 extends SegmentConstraint
 
-@export var min_angle: float
+@export var min_angle: float:
+	get:
+		return min_angle
+	set(value):
+		if min_angle != value:
+			min_angle = value
+			emit_changed()
 
 func apply(on: BodySegment) -> void:
 	# Head doesn't get any constraints
