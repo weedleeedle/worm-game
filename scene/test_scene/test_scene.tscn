@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cfpurmy6js266" path="res://scene/test_scene/test_scene.gd" id="1_au7ee"]
 [ext_resource type="Resource" uid="uid://dnw4yw0k2pb2y" path="res://resource/iterators/worm_on_a_string.tres" id="2_a5wqp"]
 [ext_resource type="Script" uid="uid://bubfxjvewqaj8" path="res://src/segment_constraints/segment_constraint.gd" id="2_t7gac"]
+[ext_resource type="Script" uid="uid://c36u81uwa6gu0" path="res://src/segment_constraints/group_constraint.gd" id="3_7kct0"]
 [ext_resource type="Script" uid="uid://df5fvyk41gl1y" path="res://src/segment_constraints/distance_constraint.gd" id="3_yi5xj"]
 [ext_resource type="Script" uid="uid://bveufj3y2tke7" path="res://src/segment_constraints/angle_constraint.gd" id="4_t7gac"]
 [ext_resource type="PackedScene" uid="uid://dn6j6tynciqx7" path="res://component/body_renderer/body_renderer.tscn" id="5_yi5xj"]
@@ -12,15 +13,20 @@
 [ext_resource type="Script" uid="uid://cai3g7scdoai3" path="res://src/outline/outline.gd" id="7_a5wqp"]
 [ext_resource type="Script" uid="uid://btng3safvwlh7" path="res://src/outline/render_set.gd" id="8_r8f76"]
 
-[sub_resource type="Resource" id="Resource_pvdxb"]
+[sub_resource type="Resource" id="Resource_sp4vn"]
 script = ExtResource("3_yi5xj")
-max_distance = 6.0
+max_distance = 5.0
 metadata/_custom_type_script = "uid://df5fvyk41gl1y"
 
-[sub_resource type="Resource" id="Resource_yi5xj"]
+[sub_resource type="Resource" id="Resource_6ykt4"]
 script = ExtResource("4_t7gac")
-min_angle = 176.5
+min_angle = 175.5
 metadata/_custom_type_script = "uid://bveufj3y2tke7"
+
+[sub_resource type="Resource" id="Resource_6q5kd"]
+script = ExtResource("3_7kct0")
+sub_constraints = Array[ExtResource("2_t7gac")]([SubResource("Resource_sp4vn"), SubResource("Resource_6ykt4")])
+metadata/_custom_type_script = "uid://c36u81uwa6gu0"
 
 [sub_resource type="Resource" id="Resource_o4lli"]
 script = ExtResource("7_7kct0")
@@ -43,7 +49,7 @@ metadata/_custom_type_script = "uid://btng3safvwlh7"
 [node name="s" type="Node" unique_id=1482380878]
 script = ExtResource("1_au7ee")
 iterator = ExtResource("2_a5wqp")
-constraints = Array[ExtResource("2_t7gac")]([SubResource("Resource_pvdxb"), SubResource("Resource_yi5xj")])
+constraint = SubResource("Resource_6q5kd")
 accessories = Array[ExtResource("6_rdy5v")]([SubResource("Resource_o4lli")])
 
 [node name="BodyRenderer" parent="." unique_id=119475448 instance=ExtResource("5_yi5xj")]

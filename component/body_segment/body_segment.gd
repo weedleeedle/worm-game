@@ -11,7 +11,7 @@ const DISTANCE_SCALING: float = 1.0 / 75.0
 ## The max move speed for the head
 @export var max_velocity: float = 350.0
 
-@export var constraints: Array[SegmentConstraint]
+@export var constraint: SegmentConstraint
 
 @export var parent_segment: BodySegment
 @export var child_segment: BodySegment
@@ -36,8 +36,7 @@ func _process(delta: float) -> void:
 		global_position += movement_vector * delta
 
 	# Handle constraints
-	for constraint in constraints:
-		constraint.apply(self)
+	constraint.apply(self)
 
 	# Make sure the accessories are pointing the right way
 	for accessory in accessories:
