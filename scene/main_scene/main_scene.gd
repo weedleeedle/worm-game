@@ -1,7 +1,6 @@
-extends Node
+extends Node2D
 
 @export var iterator: Iterator
-
 @export var constraint: SegmentConstraint
 @export var accessories: Array[Accessory]
 

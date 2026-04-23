@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://2tkpim468r67"]
+
+[ext_resource type="Script" uid="uid://cfpurmy6js266" path="res://scene/main_scene/main_scene.gd" id="1_wfqtb"]
+[ext_resource type="Resource" uid="uid://dnw4yw0k2pb2y" path="res://resource/iterators/worm_on_a_string.tres" id="2_co2fn"]
+[ext_resource type="Script" uid="uid://c36u81uwa6gu0" path="res://src/segment_constraints/group_constraint.gd" id="3_vxise"]
+[ext_resource type="Script" uid="uid://bubfxjvewqaj8" path="res://src/segment_constraints/segment_constraint.gd" id="4_bxhx3"]
+[ext_resource type="Script" uid="uid://df5fvyk41gl1y" path="res://src/segment_constraints/distance_constraint.gd" id="5_n4opw"]
+[ext_resource type="Script" uid="uid://bveufj3y2tke7" path="res://src/segment_constraints/angle_constraint.gd" id="6_1psi4"]
+[ext_resource type="Script" uid="uid://bmgkh06h8vagm" path="res://src/accessories/accessory.gd" id="7_abis2"]
+[ext_resource type="Script" uid="uid://phelohebufk8" path="res://src/accessories/scene_accessory.gd" id="8_gbtja"]
+[ext_resource type="PackedScene" uid="uid://dn6j6tynciqx7" path="res://component/body_renderer/body_renderer.tscn" id="9_nbf3l"]
+[ext_resource type="Script" uid="uid://cai3g7scdoai3" path="res://src/outline/outline.gd" id="10_caomg"]
+[ext_resource type="Script" uid="uid://btng3safvwlh7" path="res://src/outline/render_set.gd" id="11_gyydh"]
+[ext_resource type="PackedScene" uid="uid://b2w2klrgocrit" path="res://component/body_debug_renderer/body_debug_renderer.tscn" id="12_35xdu"]
+
+[sub_resource type="Resource" id="Resource_sp4vn"]
+script = ExtResource("5_n4opw")
+max_distance = 0.5
+metadata/_custom_type_script = "uid://df5fvyk41gl1y"
+
+[sub_resource type="Resource" id="Resource_6ykt4"]
+script = ExtResource("6_1psi4")
+min_angle = 175.5
+metadata/_custom_type_script = "uid://bveufj3y2tke7"
+
+[sub_resource type="Resource" id="Resource_6q5kd"]
+script = ExtResource("3_vxise")
+sub_constraints = Array[ExtResource("4_bxhx3")]([SubResource("Resource_sp4vn"), SubResource("Resource_6ykt4")])
+metadata/_custom_type_script = "uid://c36u81uwa6gu0"
+
+[sub_resource type="Resource" id="Resource_o4lli"]
+script = ExtResource("8_gbtja")
+custom_model_scene = "uid://yjdocj0aocbt"
+placement = 0.02
+metadata/_custom_type_script = "uid://phelohebufk8"
+
+[sub_resource type="Resource" id="Resource_rdy5v"]
+script = ExtResource("10_caomg")
+outline_color = Color(1, 1, 1, 1)
+outline_width = 5.0
+metadata/_custom_type_script = "uid://cai3g7scdoai3"
+
+[sub_resource type="Resource" id="Resource_fxesv"]
+script = ExtResource("11_gyydh")
+fill_color = Color(0, 0.6469637, 0.6469637, 1)
+outlines = Array[ExtResource("10_caomg")]([SubResource("Resource_rdy5v")])
+metadata/_custom_type_script = "uid://btng3safvwlh7"
+
+[node name="Main" type="Node2D" unique_id=1412268942]
+script = ExtResource("1_wfqtb")
+iterator = ExtResource("2_co2fn")
+constraint = SubResource("Resource_6q5kd")
+accessories = Array[ExtResource("7_abis2")]([SubResource("Resource_o4lli")])
+
+[node name="BodyRenderer" parent="." unique_id=119475448 instance=ExtResource("9_nbf3l")]
+render_properties = SubResource("Resource_fxesv")
+
+[node name="BodyDebugRenderer" parent="." unique_id=1142928428 node_paths=PackedStringArray("body_renderer") instance=ExtResource("12_35xdu")]
+body_renderer = NodePath("../BodyRenderer")
