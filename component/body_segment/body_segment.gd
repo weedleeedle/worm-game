@@ -81,26 +81,64 @@ func tail_vector() -> Vector2:
 
 	return child_segment.global_position - global_position
 
-## Get the total number of body segments.
-## This is an expensive operation, it has to recurse across the entire body!
+# TODO: Cache all of these results so they don't need to be recalculated each time.
 
-## The minimum body length is 1 (one head/tail)
-func get_length() -> int:
+## Get the total number of body segments from here to the tail.
+## This is an expensive operation, it has to recurse across the entire sub-body to the tail.
+##
+## The minimum body distance is 0. If you want the length, just add one to this result.
+func get_distance_to_tail() -> int:
 	if child_segment == null:
-		return 1
+		return 0
 	else:
 		return child_segment.get_length() + 1
 
-## Gets the total sum of all the body segments radiuses.
+## Gets the total sum of all the body segments radiuses from here to the tail.
 ##
 ## This function assumes that each segment is tangential to each of the two adjacent ones.
 ## In reality, these segments are often overlapping each other due to the constrains applied to the body, but that SHOULD be fine for what we're using this for. Just realize this is basically a "stretched out" length.
-func get_real_length() -> float:
+func get_real_distance_to_tail() -> float:
 	if child_segment == null:
 		# Diameter, not radius
 		return radius * 2.0
 	else:
 		return child_segment.get_real_length() + (radius* 2.0)
+
+## Gets the distance from the head (0 is the head itself, 1 is the child, etc.)
+func get_distance_to_head() -> int:
+	if is_head():
+		return 0
+
+	return parent_segment.get_distance_to_head() + 1
+
+func get_real_distance_to_head() -> float:
+	if is_head():
+		return radius * 2.0
+	else:
+		return parent_segment.get_real_distance_to_head() + (radius * 2.0)
+
+## Get the total length of the body.
+## 
+## Note that unlike get_distance_to_X this does count the current segment as 1.
+func get_length() -> int:
+	if is_head():
+		return get_distance_to_tail() + 1
+	elif child_segment == null:
+		return get_distance_to_head() + 1
+	else:
+		# We have to add 3 to get the total length of the body, since the head and tail each return 0
+		# and we have to add one more for this segment.
+		return get_distance_to_head() + get_distance_to_tail() + 3
+
+## Get the real length from this segment to the head and the tail.
+func get_real_length() -> float:
+	if is_head():
+		# Just go to the tail
+		return get_real_distance_to_tail()
+	elif child_segment == null:
+		return get_real_distance_to_head()
+	else:
+		return parent_segment.get_real_distance_to_head() + child_segment.get_real_distance_to_tail() + (radius * 2.0)
 
 ## Gets the nth grandchild. 0 is the current node, 1 is the child, 2 is the grandchild, etc.
 ##
@@ -112,3 +150,10 @@ func get_nth_child(n: int) -> BodySegment:
 		return self
 
 	return child_segment.get_nth_child(n - 1)
+
+## Gets the transform of the head of the worm
+func get_head_transform() -> Transform2D:
+	if is_head():
+		return Transform2D(tail_vector().angle() + PI, global_position)
+	
+	return parent_segment.get_head_transform()

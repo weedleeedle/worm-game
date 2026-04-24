@@ -1,18 +1,22 @@
 ## Caches the results of an iterator and allows for various operations over/with the entire set.
 class_name IteratorCollector
+# My impression of RefCounted is that if you ever have a resource that doesn't need to be tracked 
+# in the editor, this is what you want to reach for.
 extends RefCounted
 
 # Iterators return floats
 var iterator_results: Array[float]
 
 func _init(iterator: Iterator) -> void:
-	iterator_results = []
+	iterator_results = Array([], TYPE_FLOAT, "", null)
 	var val := iterator.next()
 	while !val.is_halt():
-		iterator_results.push_back(val)
+		iterator_results.push_back(val.get_value())
 		val = iterator.next()
 
-func size() -> void:
+	iterator.reset()
+
+func size() -> int:
 	return iterator_results.size()
 
 func get_val(idx: int) -> float:
@@ -30,6 +34,3 @@ func interpolate(idx: float) -> float:
 
 	# Interpolate between the two values.
 	return first_val * (1.0 - remainder_idx) + second_val * remainder_idx
-
-
-
