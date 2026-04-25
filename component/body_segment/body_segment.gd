@@ -102,7 +102,7 @@ func get_real_distance_to_tail() -> float:
 		# Diameter, not radius
 		return radius * 2.0
 	else:
-		return child_segment.get_real_length() + (radius* 2.0)
+		return child_segment.get_real_distance_to_tail() + (radius* 2.0)
 
 ## Gets the distance from the head (0 is the head itself, 1 is the child, etc.)
 func get_distance_to_head() -> int:
