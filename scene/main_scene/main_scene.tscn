@@ -4,39 +4,28 @@
 [ext_resource type="Resource" uid="uid://dnw4yw0k2pb2y" path="res://resource/iterators/worm_on_a_string.tres" id="2_co2fn"]
 [ext_resource type="Script" uid="uid://c36u81uwa6gu0" path="res://src/segment_constraints/group_constraint.gd" id="3_vxise"]
 [ext_resource type="Script" uid="uid://bubfxjvewqaj8" path="res://src/segment_constraints/segment_constraint.gd" id="4_bxhx3"]
+[ext_resource type="Script" uid="uid://df5fvyk41gl1y" path="res://src/segment_constraints/distance_constraint.gd" id="5_n4opw"]
+[ext_resource type="Script" uid="uid://bveufj3y2tke7" path="res://src/segment_constraints/angle_constraint.gd" id="6_1psi4"]
 [ext_resource type="Script" uid="uid://bmgkh06h8vagm" path="res://src/accessories/accessory.gd" id="7_abis2"]
 [ext_resource type="Script" uid="uid://phelohebufk8" path="res://src/accessories/scene_accessory.gd" id="8_gbtja"]
 [ext_resource type="PackedScene" uid="uid://dn6j6tynciqx7" path="res://component/body_renderer/body_renderer.tscn" id="9_nbf3l"]
-[ext_resource type="Script" uid="uid://ur8mqj4gbxme" path="res://src/segment_constraints/iterator_constraint.gd" id="9_vxise"]
-[ext_resource type="Script" uid="uid://cfebchxkwkr7s" path="res://src/iterators/expression_iterator.gd" id="10_bxhx3"]
 [ext_resource type="Script" uid="uid://cai3g7scdoai3" path="res://src/outline/outline.gd" id="10_caomg"]
 [ext_resource type="Script" uid="uid://btng3safvwlh7" path="res://src/outline/render_set.gd" id="11_gyydh"]
 [ext_resource type="PackedScene" uid="uid://bru2tnj2ekgjo" path="res://component/property_manager/property_manager.tscn" id="12_wfqtb"]
 
 [sub_resource type="Resource" id="Resource_wfqtb"]
-script = ExtResource("10_bxhx3")
-expression = "-250*i"
-end_range = 1.0
-steps = 50
-metadata/_custom_type_script = "uid://cfebchxkwkr7s"
+script = ExtResource("5_n4opw")
+max_distance = 5.0
+metadata/_custom_type_script = "uid://df5fvyk41gl1y"
 
 [sub_resource type="Resource" id="Resource_co2fn"]
-script = ExtResource("10_bxhx3")
-expression = "100*sin(2*PI*i)"
-end_range = 1.0
-steps = 50
-metadata/_custom_type_script = "uid://cfebchxkwkr7s"
-
-[sub_resource type="Resource" id="Resource_abis2"]
-script = ExtResource("9_vxise")
-x_iterator = SubResource("Resource_wfqtb")
-y_iterator = SubResource("Resource_co2fn")
-max_distance = 200.0
-metadata/_custom_type_script = "uid://ur8mqj4gbxme"
+script = ExtResource("6_1psi4")
+min_angle = 175.0
+metadata/_custom_type_script = "uid://bveufj3y2tke7"
 
 [sub_resource type="Resource" id="Resource_vxise"]
 script = ExtResource("3_vxise")
-sub_constraints = Array[ExtResource("4_bxhx3")]([SubResource("Resource_abis2")])
+sub_constraints = Array[ExtResource("4_bxhx3")]([SubResource("Resource_wfqtb"), SubResource("Resource_co2fn")])
 metadata/_custom_type_script = "uid://c36u81uwa6gu0"
 
 [sub_resource type="Resource" id="Resource_bxhx3"]

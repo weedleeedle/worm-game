@@ -91,7 +91,7 @@ func get_distance_to_tail() -> int:
 	if child_segment == null:
 		return 0
 	else:
-		return child_segment.get_length() + 1
+		return child_segment.get_distance_to_tail() + 1
 
 ## Gets the total sum of all the body segments radiuses from here to the tail.
 ##
@@ -126,9 +126,9 @@ func get_length() -> int:
 	elif child_segment == null:
 		return get_distance_to_head() + 1
 	else:
-		# We have to add 3 to get the total length of the body, since the head and tail each return 0
-		# and we have to add one more for this segment.
-		return get_distance_to_head() + get_distance_to_tail() + 3
+		var head_dist := get_distance_to_head()
+		var tail_dist := get_distance_to_tail()
+		return head_dist + tail_dist + 1
 
 ## Get the real length from this segment to the head and the tail.
 func get_real_length() -> float:
