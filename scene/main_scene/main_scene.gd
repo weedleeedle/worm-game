@@ -1,20 +1,17 @@
 extends Node2D
 
-@onready var body_renderer: BodyRenderer = $BodyRenderer
 @onready var property_manager: PropertyManager = $PropertyManager
 
 var current_body: BodySegment
 
 func _ready() -> void:
 	current_body = generate_body(property_manager.iterator, property_manager.constraint, property_manager.accessories)
-	body_renderer.render_properties = property_manager.render_set
+	RenderService.add_render_target(current_body, property_manager.accessories, property_manager.render_set)
 
 func generate_body(iterator: Iterator, constraint: SegmentConstraint, accessories: Array[Accessory]) -> BodySegment:
 	# Create a worm!!	
 	var body := BodyFactory.create_body(iterator, constraint, accessories)
 	add_child(body)
-	body_renderer.body = body
-	body_renderer.accessories = accessories
 	return body
 
 # We need to completely regenerate the body anytime the iterator or accessories change.

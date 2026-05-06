@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b6kdudvftilbk"]
+
+[ext_resource type="Script" uid="uid://dvsfnmtsq2loy" path="res://component/renderer_service/renderer_service.gd" id="1_e1g6x"]
+
+[node name="BodyRendererService" type="Node" unique_id=1773158229]
+script = ExtResource("1_e1g6x")
