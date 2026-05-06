@@ -2,14 +2,8 @@
 class_name BodySegment
 extends Node2D
 
-# How "quickly" we begin to slow down when nearing a target position
-const DISTANCE_SCALING: float = 1.0 / 75.0
-
 ## The size of this segment
 @export var radius: float = 50.0
-
-## The max move speed for the head
-@export var max_velocity: float = 350.0
 
 @export var constraint: SegmentConstraint
 
@@ -23,20 +17,8 @@ func _ready() -> void:
 	#_generate_circle()
 
 func _process(delta: float) -> void:
-	if is_head():
-		# If this is the head, target and move towards the mouse cursor.
-		var direction := get_global_mouse_position() - global_position
-		var distance := direction.length()
-		# We approach zero as we near the target
-		#var weight := (DISTANCE_SCALING * distance) / sqrt(1 + pow(DISTANCE_SCALING * distance, 2.0))
-		var weight := sqrt(DISTANCE_SCALING * distance)
-		# We probably want to do some kind of easing once we get close to the mouse. We'll see.
-		var velocity := lerpf(0, max_velocity, weight)
-		var movement_vector := direction.normalized() * velocity
-		global_position += movement_vector * delta
-
 	# Handle constraints
-	constraint.apply(self)
+	constraint.apply(self, delta)
 
 	# Make sure the accessories are pointing the right way
 	for accessory in accessories:

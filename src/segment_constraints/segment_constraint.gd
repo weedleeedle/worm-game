@@ -4,7 +4,7 @@ class_name SegmentConstraint
 extends Resource
 
 ## Moves the nodes or whatever.
-@abstract func apply(on: BodySegment) -> void
+@abstract func apply(on: BodySegment, delta: float) -> void
 
 # Note, we might have to do some additional steps if we have multiple constraints that apply different transformations? 
 # Or maybe we don't care?

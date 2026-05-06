@@ -23,7 +23,7 @@ extends SegmentConstraint
 var x_iterator_result: IteratorCollector
 var y_iterator_result: IteratorCollector
 
-func apply(on: BodySegment) -> void:
+func apply(on: BodySegment, _delta: float) -> void:
 	# This is such a huge waste of performance lol. We should figure out how to cache this (probably in the body segment itself)
 	var total_length: int = on.get_length()
 	var idx: int = on.get_distance_to_head()

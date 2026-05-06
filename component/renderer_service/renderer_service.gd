@@ -11,6 +11,5 @@ var renderer: BodyRenderer
 func add_renderer(p_renderer: BodyRenderer) -> void:
 	renderer = p_renderer
 
-func add_render_target(body_segment: BodySegment, accessories: Array[Accessory], render_set: RenderSet) -> void:
-	renderer.add_render_target(body_segment, accessories, render_set)
-
+func add_render_target(body_segment: BodySegment, accessories: Array[Accessory], render_set: RenderSet, z_index := 0) -> void:
+	renderer.add_render_target(body_segment, accessories, render_set, z_index)

@@ -6,11 +6,13 @@ class RenderTarget:
 	var body: BodySegment
 	var accessories: Array[Accessory]
 	var render_set: RenderSet
+	var z_index: int 
 	
-	func _init(p_body: BodySegment, p_accessories: Array[Accessory], p_render_set: RenderSet) -> void:
+	func _init(p_body: BodySegment, p_accessories: Array[Accessory], p_render_set: RenderSet, p_z_index: int) -> void:
 		body = p_body
 		accessories = p_accessories
 		render_set = p_render_set
+		z_index = p_z_index
 
 ## How many points to put on the head and tail. This number is doubled for raisins.
 static var END_RESOLUTION: int = 16
@@ -25,11 +27,15 @@ func _process(_delta: float) -> void:
 	# We could prooobably have body segments emit signals when they move so we know to redraw...
 	queue_redraw()
 
-func add_render_target(body: BodySegment, accessories: Array[Accessory], render_set: RenderSet) -> void:
-	render_targets.push_back(RenderTarget.new(body, accessories, render_set))
+func add_render_target(body: BodySegment, accessories: Array[Accessory], render_set: RenderSet, z_index := 0) -> void:
+	# This is famously a very good way of inserting a value into a sorted array.
+	render_targets.push_back(RenderTarget.new(body, accessories, render_set, z_index))
+	render_targets.sort_custom(func (a, b): return a.z_index < b.z_index)
 
 func _draw() -> void:
+	print("Drawing!")
 	for target in render_targets:
+		print("Rendering: ", target.body)
 		_render(target.body, target.accessories, target.render_set)
 
 func _render(segment: BodySegment, accessories: Array[Accessory], render_set: RenderSet) -> void:
