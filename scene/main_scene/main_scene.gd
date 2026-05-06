@@ -10,7 +10,7 @@ func _ready() -> void:
 
 func generate_body(iterator: Iterator, constraint: SegmentConstraint, accessories: Array[Accessory]) -> BodySegment:
 	# Create a worm!!	
-	var body := BodyFactory.create_body(iterator, constraint, accessories)
+	var body: BodySegment = BodyFactory.create_body(iterator, constraint, accessories)
 	add_child(body)
 	return body
 

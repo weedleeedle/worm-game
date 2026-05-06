@@ -136,6 +136,7 @@ func get_nth_child(n: int) -> BodySegment:
 ## Gets the transform of the head of the worm
 func get_head_transform() -> Transform2D:
 	if is_head():
+		# Extremely hacky way of getting offsets to work IDK WHAT I'M DOINGGG
 		return Transform2D(tail_vector().angle() + PI, global_position)
 	
 	return parent_segment.get_head_transform()
