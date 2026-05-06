@@ -13,7 +13,9 @@
 [ext_resource type="Script" uid="uid://cai3g7scdoai3" path="res://src/outline/outline.gd" id="10_caomg"]
 [ext_resource type="Script" uid="uid://btng3safvwlh7" path="res://src/outline/render_set.gd" id="11_gyydh"]
 [ext_resource type="Script" uid="uid://cfebchxkwkr7s" path="res://src/iterators/expression_iterator.gd" id="11_vxise"]
+[ext_resource type="Script" uid="uid://dirronacgv5jy" path="res://src/accessories/offset_accessory.gd" id="12_n4opw"]
 [ext_resource type="PackedScene" uid="uid://bru2tnj2ekgjo" path="res://component/property_manager/property_manager.tscn" id="12_wfqtb"]
+[ext_resource type="Script" uid="uid://ur8mqj4gbxme" path="res://src/segment_constraints/iterator_constraint.gd" id="14_1psi4"]
 [ext_resource type="Script" uid="uid://b80mymgwap2xb" path="res://src/accessories/sub_body_accessory.gd" id="14_bxhx3"]
 
 [sub_resource type="Resource" id="Resource_wfqtb"]
@@ -48,10 +50,31 @@ end_range = 10.0
 steps = 65
 metadata/_custom_type_script = "uid://cfebchxkwkr7s"
 
+[sub_resource type="Resource" id="Resource_dksqo"]
+script = ExtResource("11_vxise")
+expression = "25*sin(2*PI*i)"
+end_range = 1.0
+steps = 50
+metadata/_custom_type_script = "uid://cfebchxkwkr7s"
+
 [sub_resource type="Resource" id="Resource_1psi4"]
-script = ExtResource("5_n4opw")
-max_distance = 1.0
-metadata/_custom_type_script = "uid://df5fvyk41gl1y"
+script = ExtResource("11_vxise")
+expression = "-i"
+end_range = 100.0
+steps = 50
+metadata/_custom_type_script = "uid://cfebchxkwkr7s"
+
+[sub_resource type="Resource" id="Resource_hu8ri"]
+script = ExtResource("14_1psi4")
+x_iterator = SubResource("Resource_dksqo")
+y_iterator = SubResource("Resource_1psi4")
+max_distance = 5.0
+metadata/_custom_type_script = "uid://ur8mqj4gbxme"
+
+[sub_resource type="Resource" id="Resource_7c6cm"]
+script = ExtResource("3_vxise")
+sub_constraints = Array[ExtResource("4_bxhx3")]([SubResource("Resource_hu8ri")])
+metadata/_custom_type_script = "uid://c36u81uwa6gu0"
 
 [sub_resource type="Resource" id="Resource_abis2"]
 script = ExtResource("10_caomg")
@@ -68,11 +91,79 @@ metadata/_custom_type_script = "uid://btng3safvwlh7"
 [sub_resource type="Resource" id="Resource_nbf3l"]
 script = ExtResource("14_bxhx3")
 body_iterator = SubResource("Resource_n4opw")
-constraint = SubResource("Resource_1psi4")
+constraint = SubResource("Resource_7c6cm")
 render_set = SubResource("Resource_gbtja")
 z_index = 1
 placement = 0.1
 metadata/_custom_type_script = "uid://b80mymgwap2xb"
+
+[sub_resource type="Resource" id="Resource_35xdu"]
+script = ExtResource("12_n4opw")
+sub_accessory = SubResource("Resource_nbf3l")
+offset = Vector2(0, -25)
+placement = 0.2
+metadata/_custom_type_script = "uid://dirronacgv5jy"
+
+[sub_resource type="Resource" id="Resource_gyydh"]
+script = ExtResource("11_vxise")
+expression = "10-i"
+end_range = 10.0
+steps = 65
+metadata/_custom_type_script = "uid://cfebchxkwkr7s"
+
+[sub_resource type="Resource" id="Resource_3oinw"]
+script = ExtResource("11_vxise")
+expression = "25*sin(2*PI*i)"
+end_range = 1.0
+steps = 50
+metadata/_custom_type_script = "uid://cfebchxkwkr7s"
+
+[sub_resource type="Resource" id="Resource_k58lk"]
+script = ExtResource("11_vxise")
+expression = "i"
+end_range = 100.0
+steps = 50
+metadata/_custom_type_script = "uid://cfebchxkwkr7s"
+
+[sub_resource type="Resource" id="Resource_8yar0"]
+script = ExtResource("14_1psi4")
+x_iterator = SubResource("Resource_3oinw")
+y_iterator = SubResource("Resource_k58lk")
+max_distance = 5.0
+metadata/_custom_type_script = "uid://ur8mqj4gbxme"
+
+[sub_resource type="Resource" id="Resource_6b7li"]
+script = ExtResource("3_vxise")
+sub_constraints = Array[ExtResource("4_bxhx3")]([SubResource("Resource_8yar0")])
+metadata/_custom_type_script = "uid://c36u81uwa6gu0"
+
+[sub_resource type="Resource" id="Resource_wnwai"]
+script = ExtResource("10_caomg")
+outline_color = Color(1, 1, 1, 1)
+outline_width = 2.0
+metadata/_custom_type_script = "uid://cai3g7scdoai3"
+
+[sub_resource type="Resource" id="Resource_m0fp6"]
+script = ExtResource("11_gyydh")
+fill_color = Color(1, 0.16078432, 0.16078432, 1)
+outlines = Array[ExtResource("10_caomg")]([SubResource("Resource_wnwai")])
+metadata/_custom_type_script = "uid://btng3safvwlh7"
+
+[sub_resource type="Resource" id="Resource_47ad3"]
+script = ExtResource("14_bxhx3")
+body_iterator = SubResource("Resource_gyydh")
+constraint = SubResource("Resource_6b7li")
+render_set = SubResource("Resource_m0fp6")
+z_index = 1
+placement = 0.1
+metadata/_custom_type_script = "uid://b80mymgwap2xb"
+
+[sub_resource type="Resource" id="Resource_hah7m"]
+script = ExtResource("12_n4opw")
+sub_accessory = SubResource("Resource_47ad3")
+offset = Vector2(0, 25)
+placement = 0.2
+metadata/_custom_type_script = "uid://dirronacgv5jy"
 
 [sub_resource type="Resource" id="Resource_rdy5v"]
 script = ExtResource("10_caomg")
@@ -94,7 +185,7 @@ script = ExtResource("1_wfqtb")
 [node name="PropertyManager" parent="." unique_id=1227955740 instance=ExtResource("12_wfqtb")]
 iterator = ExtResource("2_co2fn")
 constraint = SubResource("Resource_vxise")
-accessories = Array[ExtResource("7_abis2")]([SubResource("Resource_bxhx3"), SubResource("Resource_nbf3l")])
+accessories = Array[ExtResource("7_abis2")]([SubResource("Resource_bxhx3"), SubResource("Resource_35xdu"), SubResource("Resource_hah7m")])
 render_set = SubResource("Resource_fxesv")
 
 [connection signal="accessories_changed" from="PropertyManager" to="." method="_on_property_manager_accessories_changed"]

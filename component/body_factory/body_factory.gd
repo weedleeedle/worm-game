@@ -32,22 +32,23 @@ func _init_accessories(body_root: BodySegment, accessories: Array[Accessory]) ->
 	var real_length := body_root.get_real_length()
 	for accessory in accessories:
 		var accessory_model := accessory.init_accessory_model()
-		var segment := _get_closest_body_segment(body_root, real_length, accessory.placement)
+		var segment := _get_closest_body_segment(body_root, 0.0, real_length, accessory.placement)
 		segment.attach_accessory(accessory_model)
 
 ## Gets the closest body part to a given weight from 0.0 to 1.0
-func _get_closest_body_segment(body_root: BodySegment, real_length: float, weight: float) -> BodySegment:
+func _get_closest_body_segment(body_root: BodySegment, elapsed_length: float, total_length: float, weight: float) -> BodySegment:
 	# How "much" of the body does this given segment take up?
 	var diameter := body_root.radius * 2.0
-	var max_weight := diameter / real_length
+	var max_weight := (elapsed_length + diameter) / total_length
 	# If the provided weight falls within this range, we return this segment.
-	if weight <= max_weight:
+	if weight < max_weight:
 		return body_root
+
 	# Otherwise we recurse and reduce the bounds of our search. We shouldn't have to check for a child segment since we know we aren't at the end of the body yet??
 	if body_root.child_segment == null:
 		push_error("Expected a child segment on this body, got null!")
 		return body_root
 
 	# Reduce the remaining length and the remaining weight.
-	return _get_closest_body_segment(body_root.child_segment, real_length - diameter, weight)
+	return _get_closest_body_segment(body_root.child_segment, elapsed_length + diameter, total_length, weight)
 

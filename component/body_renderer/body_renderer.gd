@@ -33,9 +33,7 @@ func add_render_target(body: BodySegment, accessories: Array[Accessory], render_
 	render_targets.sort_custom(func (a, b): return a.z_index < b.z_index)
 
 func _draw() -> void:
-	print("Drawing!")
 	for target in render_targets:
-		print("Rendering: ", target.body)
 		_render(target.body, target.accessories, target.render_set)
 
 func _render(segment: BodySegment, accessories: Array[Accessory], render_set: RenderSet) -> void:
