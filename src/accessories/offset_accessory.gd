@@ -6,13 +6,13 @@ extends Accessory
 
 @export var sub_accessory: Accessory
 
-@export var offset: Vector2
+@export var offset: Vector2 = Vector2.ZERO
 
-@export var rotation: float
+@export_range(0, 360, 0.1, "radians_as_degrees") var rotation: float = 0.0
 
-@export var scale: Vector2
+@export var scale: Vector2 = Vector2.ONE
 
-@export var skew: float
+@export var skew: float = 0.0
 
 func init_accessory_model() -> AccessoryModel:
 	var sub_accessory_model = sub_accessory.init_accessory_model()
