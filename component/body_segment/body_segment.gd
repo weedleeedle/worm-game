@@ -20,6 +20,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	# Handle constraints
 	constraint.apply(self, delta)
+	# Point this node the right way
+
+	if !is_head():
+		rotation = (parent_segment.position - position).angle()
 
 	# Make sure the accessories are pointing the right way
 	for accessory in accessories:
@@ -29,8 +33,6 @@ func _process(delta: float) -> void:
 			head_vector = tail_vector().rotated(deg_to_rad(180))
 		else:
 			head_vector = head_vector()
-
-		accessory.rotation = head_vector.angle()
 
 func is_head() -> bool:
 	return parent_segment == null
@@ -50,7 +52,7 @@ func head_vector() -> Vector2:
 		push_error("Attempted to get parent_segment of head body segment")
 		return Vector2.ZERO
 
-	return parent_segment.global_position - global_position
+	return parent_segment.position - position
 
 ## Returns the direction of the tail
 func tail_vector() -> Vector2:
@@ -58,7 +60,7 @@ func tail_vector() -> Vector2:
 		push_error("Attempted to get child_segment of tail body segment")
 		return Vector2.ZERO
 
-	return child_segment.global_position - global_position
+	return child_segment.position - position
 
 # TODO: Cache all of these results so they don't need to be recalculated each time.
 
@@ -129,11 +131,3 @@ func get_nth_child(n: int) -> BodySegment:
 		return self
 
 	return child_segment.get_nth_child(n - 1)
-
-## Gets the transform of the head of the worm
-func get_head_transform() -> Transform2D:
-	if is_head():
-		# Extremely hacky way of getting offsets to work IDK WHAT I'M DOINGGG
-		return Transform2D(tail_vector().angle() + PI, global_position)
-	
-	return parent_segment.get_head_transform()

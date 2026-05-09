@@ -37,8 +37,7 @@ func apply(on: BodySegment, _delta: float) -> void:
 	var y_val: float = y_iterator_result.interpolate(y_iterator_idx)
 	
 	# I think I'd like to be able to apply a relative transform to this somehow...
-	var vec := Vector2(x_val, y_val)
-	var target_pos := on.get_head_transform() * vec
-	var direction_vec := on.global_position - target_pos
+	var target_pos := Vector2(x_val, y_val)
+	var direction_vec := on.position - target_pos
 	var limit_vec := direction_vec.limit_length(max_distance)
-	on.global_position = target_pos + limit_vec
+	on.position = target_pos + limit_vec

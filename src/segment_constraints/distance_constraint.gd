@@ -15,7 +15,7 @@ func apply(on: BodySegment, _delta: float) -> void:
 	if on.is_head():
 		return
 
-	var parent_to_child_vec := (on.global_position - on.parent_segment.global_position)
+	var parent_to_child_vec := (on.position - on.parent_segment.position)
 	var limit_vec := parent_to_child_vec.limit_length(max_distance)
 	# Position the child based on the parent's position?
-	on.global_position = on.parent_segment.global_position + limit_vec
+	on.position = on.parent_segment.position + limit_vec
