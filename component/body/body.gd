@@ -12,15 +12,26 @@ static var ANGLE_INCREMENT: float = PI / END_RESOLUTION
 var body_segments: Array[BodySegment]
 var body_head: BodySegment
 
+func _process(delta: float) -> void:
+	queue_redraw()
+
+func get_head() -> BodySegment:
+	return body_head
+
 ## Takes control of the body segment, adds it as a child.
 ## 
 ## The first body segment added will be the head, positioned at the origin.
 func add_body_segment(body_segment: BodySegment) -> void:
 	add_child(body_segment)
-	var prev_segment: BodySegment = body_segments.back()
+	body_segment.owning_body = self
+	var prev_segment: BodySegment
+	if !body_segments.is_empty():
+		prev_segment = body_segments.back()
+
 	body_segments.push_back(body_segment)
 	if body_head == null:
 		body_head = body_segment
+
 	# Connect the new segment to the old one (maybe make this optional if they're like... pre-connected...?
 	if prev_segment == null:
 		return
@@ -52,7 +63,7 @@ func draw_segment_head(segment: BodySegment, p_render_set: RenderSet) -> void:
 	var point_set: PackedVector2Array = []
 	for outline in p_render_set.outlines:
 		for i in END_RESOLUTION+1:
-			var point = head_vector.rotated(deg_to_rad(90) + ANGLE_INCREMENT * i) * (segment.radius + outline.outline_width) + segment.global_position
+			var point = head_vector.rotated(deg_to_rad(90) + ANGLE_INCREMENT * i) * (segment.radius + outline.outline_width) + segment.position
 			point_set.push_back(point) 
 		draw_colored_polygon(point_set, outline.outline_color)
 		point_set.clear()
@@ -89,7 +100,7 @@ func draw_segment_tail(segment: BodySegment, p_render_set: RenderSet) -> void:
 	var point_set: PackedVector2Array = []
 	for outline in p_render_set.outlines:
 		for i in END_RESOLUTION+1:
-			var point = tail_vector.rotated(deg_to_rad(90) + ANGLE_INCREMENT * i) * (segment.radius + outline.outline_width) + segment.global_position
+			var point = tail_vector.rotated(deg_to_rad(90) + ANGLE_INCREMENT * i) * (segment.radius + outline.outline_width) + segment.position
 			point_set.push_back(point) 
 		draw_colored_polygon(point_set, outline.outline_color)
 		point_set.clear()
@@ -97,9 +108,9 @@ func draw_segment_tail(segment: BodySegment, p_render_set: RenderSet) -> void:
 # Returns an array of ONLY TWO VECTORS!!!!!!!
 func _get_perpendicular_points(segment: BodySegment, distance: float) -> PackedVector2Array:
 	if segment.parent_segment != null:
-		return [segment.head_vector().rotated(deg_to_rad(-90)).normalized() * distance + segment.global_position, segment.head_vector().rotated(deg_to_rad(90)).normalized() * distance + segment.global_position]
+		return [segment.head_vector().rotated(deg_to_rad(-90)).normalized() * distance + segment.position, segment.head_vector().rotated(deg_to_rad(90)).normalized() * distance + segment.position]
 	elif segment.child_segment != null:
-		return [segment.tail_vector().rotated(deg_to_rad(-90)).normalized() * distance + segment.global_position, segment.tail_vector().rotated(deg_to_rad(90)).normalized() * distance + segment.global_position]
+		return [segment.tail_vector().rotated(deg_to_rad(-90)).normalized() * distance + segment.position, segment.tail_vector().rotated(deg_to_rad(90)).normalized() * distance + segment.position]
 	else:
 		push_error("Body part had neither a head vector nor a tail vector to render against!")
 		return []

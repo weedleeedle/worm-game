@@ -9,6 +9,7 @@ extends Node2D
 
 @export var parent_segment: BodySegment
 @export var child_segment: BodySegment
+@export var owning_body: Body
 
 var accessories: Array[AccessoryModel]
 

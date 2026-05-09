@@ -2,15 +2,15 @@ extends Node2D
 
 @onready var property_manager: PropertyManager = $PropertyManager
 
-var current_body: BodySegment
+var current_body: Body
 
 func _ready() -> void:
 	current_body = generate_body(property_manager.iterator, property_manager.constraint, property_manager.accessories)
-	RenderService.add_render_target(current_body, property_manager.accessories, property_manager.render_set)
+	current_body.render_set = property_manager.render_set
 
-func generate_body(iterator: Iterator, constraint: SegmentConstraint, accessories: Array[Accessory]) -> BodySegment:
+func generate_body(iterator: Iterator, constraint: SegmentConstraint, accessories: Array[Accessory]) -> Body:
 	# Create a worm!!	
-	var body: BodySegment = BodyFactory.create_body(iterator, constraint, accessories)
+	var body: Body = BodyFactory.create_body(iterator, constraint, accessories)
 	add_child(body)
 	return body
 
@@ -24,7 +24,12 @@ func generate_body(iterator: Iterator, constraint: SegmentConstraint, accessorie
 func _on_property_manager_iterator_changed() -> void:
 	current_body.queue_free()
 	current_body = generate_body(property_manager.iterator, property_manager.constraint, property_manager.accessories)
+	current_body.render_set = property_manager.render_set
 
 func _on_property_manager_accessories_changed() -> void:
 	current_body.queue_free()
 	current_body = generate_body(property_manager.iterator, property_manager.constraint, property_manager.accessories)
+	current_body.render_set = property_manager.render_set
+
+func _on_property_manager_render_set_changed() -> void:
+	current_body.render_set = property_manager.render_set

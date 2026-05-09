@@ -4,35 +4,32 @@ extends Node
 @export_file("*.tscn") var body_segment_file: String
 @onready var body_segment_scene: PackedScene = load(body_segment_file)
 
-func create_body(body_iterator: Iterator, constraint: SegmentConstraint, accessories: Array[Accessory]) -> BodySegment:
-	# Create the head
-	var head: BodySegment = body_segment_scene.instantiate()
-	var iter_result := body_iterator.next()
-	if iter_result.is_halt():
-		push_error("Received a HALT from the body_iterator, expected at least one non-halt iterator")
-		
-	head.constraint = constraint
-	head.radius = iter_result.get_value()
+@export_file("*.tscn") var body_file: String
+@onready var body_scene: PackedScene = load(body_file)
 
-	var current_segment := head
-	iter_result = body_iterator.next()
+func create_body(body_iterator: Iterator, constraint: SegmentConstraint, accessories: Array[Accessory]) -> Body:
+	# Create the body 
+	var body: Body = body_scene.instantiate()
+
+	var iter_result = body_iterator.next()
 	while !iter_result.is_halt():
 		var new_segment: BodySegment = body_segment_scene.instantiate()
 		new_segment.constraint = constraint
 		new_segment.radius = iter_result.get_value()
-		current_segment.connect_child_segment(new_segment)
-		current_segment = new_segment
+		body.add_body_segment(new_segment)
 		iter_result = body_iterator.next()
 
-	_init_accessories(head, accessories)
-	return head
+	_init_accessories(body, accessories)
+	return body
 
-func _init_accessories(body_root: BodySegment, accessories: Array[Accessory]) -> void:
+func _init_accessories(body: Body, accessories: Array[Accessory]) -> void:
 	# Get the maximum body length for scaling porpoises.
-	var real_length := body_root.get_real_length()
+	var body_head := body.get_head()
+	var real_length := body_head.get_real_length()
+	body.accessories = accessories
 	for accessory in accessories:
 		var accessory_model := accessory.init_accessory_model()
-		var segment := _get_closest_body_segment(body_root, 0.0, real_length, accessory.placement)
+		var segment := _get_closest_body_segment(body_head, 0.0, real_length, accessory.placement)
 		segment.attach_accessory(accessory_model)
 
 ## Gets the closest body part to a given weight from 0.0 to 1.0
@@ -51,4 +48,3 @@ func _get_closest_body_segment(body_root: BodySegment, elapsed_length: float, to
 
 	# Reduce the remaining length and the remaining weight.
 	return _get_closest_body_segment(body_root.child_segment, elapsed_length + diameter, total_length, weight)
-

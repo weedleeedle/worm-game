@@ -5,3 +5,4 @@
 [node name="BodyFactory" type="Node" unique_id=1871543605]
 script = ExtResource("1_vby0q")
 body_segment_file = "uid://dacqq0ywykqud"
+body_file = "uid://b0sqwphfbnwtn"

@@ -13,7 +13,7 @@ func apply(on: BodySegment, delta: float) -> void:
 		return
 
 	# If this is the head, target and move towards the mouse cursor.
-	var direction := on.get_global_mouse_position() - on.global_position
+	var direction := on.owning_body.get_local_mouse_position() - on.position
 	var distance := direction.length()
 	# We approach zero as we near the target
 	#var weight := (DISTANCE_SCALING * distance) / sqrt(1 + pow(DISTANCE_SCALING * distance, 2.0))
@@ -21,4 +21,5 @@ func apply(on: BodySegment, delta: float) -> void:
 	# We probably want to do some kind of easing once we get close to the mouse. We'll see.
 	var velocity := lerpf(0, max_velocity, weight)
 	var movement_vector := direction.normalized() * velocity
-	on.global_position += movement_vector * delta
+	on.position += movement_vector * delta
+	on.rotation = direction.angle()
