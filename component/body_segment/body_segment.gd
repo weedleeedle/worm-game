@@ -38,11 +38,7 @@ func is_head() -> bool:
 func connect_child_segment(segment: BodySegment) -> void:
 	child_segment = segment
 	segment.parent_segment = self
-	# Move the segment here?
-	if segment.get_parent():
-		segment.get_parent().remove_child(segment)
-	add_child(segment)
-
+	
 func attach_accessory(accessory_model: AccessoryModel) -> void:
 	add_child(accessory_model)
 	accessories.push_back(accessory_model)
