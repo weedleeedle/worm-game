@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://bubfxjvewqaj8" path="res://src/segment_constraints/segment_constraint.gd" id="4_bxhx3"]
 [ext_resource type="Script" uid="uid://df5fvyk41gl1y" path="res://src/segment_constraints/distance_constraint.gd" id="5_n4opw"]
 [ext_resource type="Script" uid="uid://bveufj3y2tke7" path="res://src/segment_constraints/angle_constraint.gd" id="6_1psi4"]
+[ext_resource type="Script" uid="uid://bmgkh06h8vagm" path="res://src/accessories/accessory.gd" id="7_abis2"]
+[ext_resource type="Script" uid="uid://phelohebufk8" path="res://src/accessories/scene_accessory.gd" id="8_gbtja"]
 [ext_resource type="Script" uid="uid://cwnncqtaoeyah" path="res://src/segment_constraints/follow_mouse_constraint.gd" id="9_bxhx3"]
 [ext_resource type="PackedScene" uid="uid://dn6j6tynciqx7" path="res://component/body_renderer/body_renderer.tscn" id="9_nbf3l"]
 [ext_resource type="Script" uid="uid://cai3g7scdoai3" path="res://src/outline/outline.gd" id="10_caomg"]
@@ -31,6 +33,12 @@ script = ExtResource("3_vxise")
 sub_constraints = Array[ExtResource("4_bxhx3")]([SubResource("Resource_wfqtb"), SubResource("Resource_co2fn"), SubResource("Resource_caomg")])
 metadata/_custom_type_script = "uid://c36u81uwa6gu0"
 
+[sub_resource type="Resource" id="Resource_bxhx3"]
+script = ExtResource("8_gbtja")
+custom_model_scene = "uid://yjdocj0aocbt"
+placement = 0.2
+metadata/_custom_type_script = "uid://phelohebufk8"
+
 [sub_resource type="Resource" id="Resource_rdy5v"]
 script = ExtResource("10_caomg")
 outline_color = Color(1, 1, 1, 1)
@@ -51,6 +59,7 @@ script = ExtResource("1_wfqtb")
 [node name="PropertyManager" parent="." unique_id=1227955740 instance=ExtResource("12_wfqtb")]
 iterator = ExtResource("2_co2fn")
 constraint = SubResource("Resource_vxise")
+accessories = Array[ExtResource("7_abis2")]([SubResource("Resource_bxhx3")])
 render_set = SubResource("Resource_fxesv")
 
 [connection signal="accessories_changed" from="PropertyManager" to="." method="_on_property_manager_accessories_changed"]
