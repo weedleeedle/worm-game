@@ -34,3 +34,21 @@ func interpolate(idx: float) -> float:
 
 	# Interpolate between the two values.
 	return first_val * (1.0 - remainder_idx) + second_val * remainder_idx
+
+# Gets the derivative (the difference between this and the next index)
+func derivative(idx: float) -> float:
+	var first_idx := floori(idx)
+	var second_idx := ceili(idx)
+	if second_idx == first_idx:
+		# Okay so if we're at the far end, subtract first_idx instead of increasing second_idx OoB
+		if first_idx == iterator_results.size() - 1:
+			first_idx -= 1
+		else:
+			second_idx += 1
+
+	var first_val := get_val(first_idx)
+	var second_val := get_val(second_idx)
+
+	return second_val - first_val
+
+

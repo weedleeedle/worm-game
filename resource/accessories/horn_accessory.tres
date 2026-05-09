@@ -1,0 +1,81 @@
+[gd_resource type="Resource" script_class="MirrorAccessory" format=3 uid="uid://cs16fet0bpkc0"]
+
+[ext_resource type="Script" uid="uid://bnvalvd7xua60" path="res://src/accessories/mirror_accessory.gd" id="1_l8p3j"]
+[ext_resource type="Script" uid="uid://dirronacgv5jy" path="res://src/accessories/offset_accessory.gd" id="2_p3c0d"]
+[ext_resource type="Script" uid="uid://bmgkh06h8vagm" path="res://src/accessories/accessory.gd" id="3_ilws3"]
+[ext_resource type="Script" uid="uid://cfebchxkwkr7s" path="res://src/iterators/expression_iterator.gd" id="4_7sqlm"]
+[ext_resource type="Script" uid="uid://c36u81uwa6gu0" path="res://src/segment_constraints/group_constraint.gd" id="5_l5ko8"]
+[ext_resource type="Script" uid="uid://bubfxjvewqaj8" path="res://src/segment_constraints/segment_constraint.gd" id="6_aeo81"]
+[ext_resource type="Script" uid="uid://ur8mqj4gbxme" path="res://src/segment_constraints/iterator_constraint.gd" id="7_8a5bc"]
+[ext_resource type="Script" uid="uid://cai3g7scdoai3" path="res://src/outline/outline.gd" id="8_5h713"]
+[ext_resource type="Script" uid="uid://btng3safvwlh7" path="res://src/outline/render_set.gd" id="9_q6tsp"]
+[ext_resource type="Script" uid="uid://b80mymgwap2xb" path="res://src/accessories/sub_body_accessory.gd" id="10_2bd75"]
+
+[sub_resource type="Resource" id="Resource_1psi4"]
+script = ExtResource("4_7sqlm")
+expression = "10-i"
+end_range = 10.0
+steps = 50
+metadata/_custom_type_script = "uid://cfebchxkwkr7s"
+
+[sub_resource type="Resource" id="Resource_abis2"]
+script = ExtResource("4_7sqlm")
+expression = "-200*i"
+end_range = 1.0
+steps = 50
+metadata/_custom_type_script = "uid://cfebchxkwkr7s"
+
+[sub_resource type="Resource" id="Resource_gbtja"]
+script = ExtResource("4_7sqlm")
+expression = "-50*(1-i)*sin(2*PI*i)"
+end_range = 1.0
+steps = 50
+metadata/_custom_type_script = "uid://cfebchxkwkr7s"
+
+[sub_resource type="Resource" id="Resource_nbf3l"]
+script = ExtResource("7_8a5bc")
+x_iterator = SubResource("Resource_abis2")
+y_iterator = SubResource("Resource_gbtja")
+max_distance = 1.0
+metadata/_custom_type_script = "uid://ur8mqj4gbxme"
+
+[sub_resource type="Resource" id="Resource_gyydh"]
+script = ExtResource("5_l5ko8")
+sub_constraints = Array[ExtResource("6_aeo81")]([SubResource("Resource_nbf3l")])
+metadata/_custom_type_script = "uid://c36u81uwa6gu0"
+
+[sub_resource type="Resource" id="Resource_8yar0"]
+script = ExtResource("8_5h713")
+outline_color = Color(1, 1, 1, 1)
+outline_width = 2.0
+metadata/_custom_type_script = "uid://cai3g7scdoai3"
+
+[sub_resource type="Resource" id="Resource_7c6cm"]
+script = ExtResource("9_q6tsp")
+fill_color = Color(0.34781694, 0.34781697, 0.3478169, 1)
+outlines = Array[ExtResource("8_5h713")]([SubResource("Resource_8yar0")])
+metadata/_custom_type_script = "uid://btng3safvwlh7"
+
+[sub_resource type="Resource" id="Resource_35xdu"]
+script = ExtResource("10_2bd75")
+body_iterator = SubResource("Resource_1psi4")
+constraint = SubResource("Resource_gyydh")
+render_set = SubResource("Resource_7c6cm")
+placement = 0.25
+metadata/_custom_type_script = "uid://b80mymgwap2xb"
+
+[sub_resource type="Resource" id="Resource_dksqo"]
+script = ExtResource("2_p3c0d")
+sub_accessory = SubResource("Resource_35xdu")
+offset = Vector2(0, -25)
+rotation = 0.4363323129985824
+placement = 0.35
+metadata/_custom_type_script = "uid://dirronacgv5jy"
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_l8p3j")
+mirror_y = true
+sub_accessory = SubResource("Resource_dksqo")
+placement = 0.4
+metadata/_custom_type_script = "uid://bnvalvd7xua60"

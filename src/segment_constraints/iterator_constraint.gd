@@ -34,8 +34,16 @@ func apply(on: BodySegment, _delta: float) -> void:
 	var x_val: float = x_iterator_result.interpolate(x_iterator_idx)
 	var y_val: float = y_iterator_result.interpolate(y_iterator_idx)
 	
+	var x_deriv: float = x_iterator_result.derivative(x_iterator_idx)
+	var y_deriv: float = y_iterator_result.derivative(y_iterator_idx)
+	
 	# I think I'd like to be able to apply a relative transform to this somehow...
 	var target_pos := Vector2(x_val, y_val)
 	var direction_vec := on.position - target_pos
 	var limit_vec := direction_vec.limit_length(max_distance)
 	on.position = target_pos + limit_vec
+	# Set rotation equal to the derivative. Or maybe it should be pointed the other way so it points at the head...
+	on.rotation = atan(y_deriv / x_deriv)
+
+
+

@@ -3,5 +3,4 @@
 [ext_resource type="Script" uid="uid://bjg8v2xjggf23" path="res://component/body_segment/body_segment.gd" id="1_nisd8"]
 
 [node name="BodySegment" type="Node2D" unique_id=1445569697]
-top_level = true
 script = ExtResource("1_nisd8")

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://w7248u1lj084" path="res://resource/image/eye.png" id="2_t6lgc"]
 
 [node name="EyesAccessoryModel" type="Node2D" unique_id=233961757]
+z_index = 10
 script = ExtResource("1_luxe8")
 metadata/_custom_type_script = "uid://ibacqjl6qnb2"
 

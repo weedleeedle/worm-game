@@ -44,39 +44,52 @@ placement = 0.2
 metadata/_custom_type_script = "uid://phelohebufk8"
 
 [sub_resource type="Resource" id="Resource_1psi4"]
+script = ExtResource("8_gbtja")
+custom_model_scene = "uid://yjdocj0aocbt"
+metadata/_custom_type_script = "uid://phelohebufk8"
+
+[sub_resource type="Resource" id="Resource_abis2"]
+script = ExtResource("12_n4opw")
+sub_accessory = SubResource("Resource_1psi4")
+scale = Vector2(0.5, 0.5)
+placement = 0.5
+metadata/_custom_type_script = "uid://dirronacgv5jy"
+
+[sub_resource type="Resource" id="Resource_gbtja"]
+resource_local_to_scene = true
 script = ExtResource("11_vxise")
 expression = "10-i"
 end_range = 10.0
 steps = 50
 metadata/_custom_type_script = "uid://cfebchxkwkr7s"
 
-[sub_resource type="Resource" id="Resource_abis2"]
+[sub_resource type="Resource" id="Resource_nbf3l"]
 script = ExtResource("11_vxise")
 expression = "-200*i"
 end_range = 1.0
 steps = 50
 metadata/_custom_type_script = "uid://cfebchxkwkr7s"
 
-[sub_resource type="Resource" id="Resource_gbtja"]
+[sub_resource type="Resource" id="Resource_gyydh"]
 script = ExtResource("11_vxise")
 expression = "-50*(1-i)*sin(2*PI*i)"
 end_range = 1.0
 steps = 50
 metadata/_custom_type_script = "uid://cfebchxkwkr7s"
 
-[sub_resource type="Resource" id="Resource_nbf3l"]
+[sub_resource type="Resource" id="Resource_35xdu"]
 script = ExtResource("13_n4opw")
-x_iterator = SubResource("Resource_abis2")
-y_iterator = SubResource("Resource_gbtja")
+x_iterator = SubResource("Resource_nbf3l")
+y_iterator = SubResource("Resource_gyydh")
 max_distance = 1.0
 metadata/_custom_type_script = "uid://ur8mqj4gbxme"
 
-[sub_resource type="Resource" id="Resource_gyydh"]
+[sub_resource type="Resource" id="Resource_dksqo"]
 script = ExtResource("3_vxise")
-sub_constraints = Array[ExtResource("4_bxhx3")]([SubResource("Resource_nbf3l")])
+sub_constraints = Array[ExtResource("4_bxhx3")]([SubResource("Resource_35xdu")])
 metadata/_custom_type_script = "uid://c36u81uwa6gu0"
 
-[sub_resource type="Resource" id="Resource_8yar0"]
+[sub_resource type="Resource" id="Resource_hu8ri"]
 script = ExtResource("10_caomg")
 outline_color = Color(1, 1, 1, 1)
 outline_width = 2.0
@@ -85,29 +98,31 @@ metadata/_custom_type_script = "uid://cai3g7scdoai3"
 [sub_resource type="Resource" id="Resource_7c6cm"]
 script = ExtResource("11_gyydh")
 fill_color = Color(0.34781694, 0.34781697, 0.3478169, 1)
-outlines = Array[ExtResource("10_caomg")]([SubResource("Resource_8yar0")])
+outlines = Array[ExtResource("10_caomg")]([SubResource("Resource_hu8ri")])
 metadata/_custom_type_script = "uid://btng3safvwlh7"
 
-[sub_resource type="Resource" id="Resource_35xdu"]
+[sub_resource type="Resource" id="Resource_8yar0"]
 script = ExtResource("14_bxhx3")
-body_iterator = SubResource("Resource_1psi4")
-constraint = SubResource("Resource_gyydh")
+body_iterator = SubResource("Resource_gbtja")
+constraint = SubResource("Resource_dksqo")
 render_set = SubResource("Resource_7c6cm")
+accessories = Array[ExtResource("7_abis2")]([SubResource("Resource_abis2")])
 placement = 0.25
 metadata/_custom_type_script = "uid://b80mymgwap2xb"
 
-[sub_resource type="Resource" id="Resource_dksqo"]
+[sub_resource type="Resource" id="Resource_6b7li"]
 script = ExtResource("12_n4opw")
-sub_accessory = SubResource("Resource_35xdu")
+sub_accessory = SubResource("Resource_8yar0")
 offset = Vector2(0, -25)
 rotation = 0.4363323129985824
 placement = 0.35
 metadata/_custom_type_script = "uid://dirronacgv5jy"
 
-[sub_resource type="Resource" id="Resource_hu8ri"]
+[sub_resource type="Resource" id="Resource_wnwai"]
+resource_local_to_scene = true
 script = ExtResource("12_abis2")
 mirror_y = true
-sub_accessory = SubResource("Resource_dksqo")
+sub_accessory = SubResource("Resource_6b7li")
 placement = 0.4
 metadata/_custom_type_script = "uid://bnvalvd7xua60"
 
@@ -128,7 +143,7 @@ script = ExtResource("1_wfqtb")
 [node name="PropertyManager" parent="." unique_id=1227955740 instance=ExtResource("12_wfqtb")]
 iterator = ExtResource("2_co2fn")
 constraint = SubResource("Resource_vxise")
-accessories = Array[ExtResource("7_abis2")]([SubResource("Resource_bxhx3"), SubResource("Resource_hu8ri")])
+accessories = Array[ExtResource("7_abis2")]([SubResource("Resource_bxhx3"), SubResource("Resource_wnwai")])
 render_set = SubResource("Resource_k58lk")
 
 [connection signal="accessories_changed" from="PropertyManager" to="." method="_on_property_manager_accessories_changed"]

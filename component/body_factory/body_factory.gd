@@ -12,6 +12,9 @@ func create_body(body_iterator: Iterator, constraint: SegmentConstraint, accesso
 	var body: Body = body_scene.instantiate()
 
 	var iter_result = body_iterator.next()
+	if iter_result.is_halt():
+		push_error("Attempted to create a body with an empty body_iterator!")
+
 	while !iter_result.is_halt():
 		var new_segment: BodySegment = body_segment_scene.instantiate()
 		new_segment.constraint = constraint
