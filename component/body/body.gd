@@ -13,6 +13,9 @@ var body_segments: Array[BodySegment]
 var body_head: BodySegment
 
 func _process(delta: float) -> void:
+	for outline in render_set.get_outlines():
+		print("\t", outline.outline_color)
+
 	queue_redraw()
 
 func get_head() -> BodySegment:
@@ -61,7 +64,7 @@ func draw_segment_head(segment: BodySegment, p_render_set: RenderSet) -> void:
 	# Render a shape for each outline. These should already be in order from largest to smallest.
 	# The fill color is actually just an outline with 0 width (it's on top so it will already be filled in.)
 	var point_set: PackedVector2Array = []
-	for outline in p_render_set.outlines:
+	for outline in p_render_set.get_outlines():
 		for i in END_RESOLUTION+1:
 			var point = head_vector.rotated(deg_to_rad(90) + ANGLE_INCREMENT * i) * (segment.radius + outline.outline_width) + segment.position
 			point_set.push_back(point) 
@@ -80,7 +83,7 @@ func draw_segment(segment: BodySegment, p_render_set: RenderSet) -> void:
 
 	var next_segment := segment.child_segment
 	# Render each outline (and the fill color)
-	for outline in p_render_set.outlines:
+	for outline in p_render_set.get_outlines():
 		var point_set: PackedVector2Array = _get_perpendicular_points(segment, segment.radius + outline.outline_width)
 		point_set.append_array(_get_perpendicular_points(next_segment, next_segment.radius + outline.outline_width))
 		draw_colored_polygon(Geometry2D.convex_hull(point_set), outline.outline_color)
@@ -98,7 +101,7 @@ func draw_segment_tail(segment: BodySegment, p_render_set: RenderSet) -> void:
 		tail_vector = segment.head_vector().normalized()
 
 	var point_set: PackedVector2Array = []
-	for outline in p_render_set.outlines:
+	for outline in p_render_set.get_outlines():
 		for i in END_RESOLUTION+1:
 			var point = tail_vector.rotated(deg_to_rad(90) + ANGLE_INCREMENT * i) * (segment.radius + outline.outline_width) + segment.position
 			point_set.push_back(point) 

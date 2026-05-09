@@ -15,8 +15,6 @@ extends SegmentConstraint
 	set(value):
 		y_iterator = value
 		y_iterator_result = IteratorCollector.new(y_iterator)
-		print(y_iterator)
-		print(y_iterator_result)
 
 @export var max_distance: float
 
