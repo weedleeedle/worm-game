@@ -13,7 +13,7 @@ extends Iterator
 	set(value):
 		if value != expression:
 			expression = value
-			_run_after_exports_initialized()
+			_expression_dirty = true
 			reset()
 			emit_changed()
 
@@ -50,6 +50,13 @@ extends Iterator
 
 var i: int = 0
 var expression_parsed: Expression
+var _expression_dirty: bool
+
+func _init(p_expression := "", p_start_range := 0.0, p_end_range := 0.0, p_steps = 1) -> void:
+	expression = p_expression
+	start_range = p_start_range
+	end_range = p_end_range
+	steps = p_steps
 
 func _run_after_exports_initialized():
 	expression_parsed = Expression.new()
@@ -57,8 +64,9 @@ func _run_after_exports_initialized():
 	expression_parsed.parse(expression, ["i"])
 
 func next() -> IteratorReturn:
-	if expression_parsed == null:
+	if _expression_dirty:
 		_run_after_exports_initialized()
+		_expression_dirty = false
 		
 	if i > steps:
 		return Iterator.HALT_RETURN

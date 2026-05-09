@@ -9,8 +9,9 @@ extends Accessory
 @export var sub_accessory: Accessory
 
 func init_accessory_model() -> AccessoryModel:
+	var sub_accessory_1: Accessory = sub_accessory.duplicate_deep()
 	var sub_accessory_2: Accessory = sub_accessory.duplicate_deep()
-	var sub_accessory_model = sub_accessory.init_accessory_model()
+	var sub_accessory_model = sub_accessory_1.init_accessory_model()
 	var sub_accessory_model_2 = sub_accessory_2.init_accessory_model()
 	sub_accessory_model_2.scale.x = -1 if mirror_x else 1
 	sub_accessory_model_2.scale.y = -1 if mirror_y else 1

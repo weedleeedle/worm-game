@@ -7,14 +7,12 @@ extends SegmentConstraint
 		return x_iterator
 	set(value):
 		x_iterator = value
-		x_iterator_result = IteratorCollector.new(x_iterator)
 
 @export var y_iterator: Iterator:
 	get:
 		return y_iterator
 	set(value):
 		y_iterator = value
-		y_iterator_result = IteratorCollector.new(y_iterator)
 
 @export var max_distance: float
 
@@ -22,6 +20,12 @@ var x_iterator_result: IteratorCollector
 var y_iterator_result: IteratorCollector
 
 func apply(on: BodySegment, _delta: float) -> void:
+	if x_iterator_result == null:
+		x_iterator_result = IteratorCollector.new(x_iterator)
+
+	if y_iterator_result == null:
+		y_iterator_result = IteratorCollector.new(y_iterator)
+
 	# This is such a huge waste of performance lol. We should figure out how to cache this (probably in the body segment itself)
 	var total_length: int = on.get_length()
 	var idx: int = on.get_distance_to_head()
@@ -44,6 +48,3 @@ func apply(on: BodySegment, _delta: float) -> void:
 	on.position = target_pos + limit_vec
 	# Set rotation equal to the derivative. Or maybe it should be pointed the other way so it points at the head...
 	on.rotation = atan(y_deriv / x_deriv)
-
-
-
