@@ -50,3 +50,6 @@ func apply(on: BodySegment, _delta: float) -> void:
 	on.position = target_pos + limit_vec
 	# Set rotation equal to the derivative. Or maybe it should be pointed the other way so it points at the head...
 	on.rotation = atan(y_deriv / x_deriv)
+
+func setup(on: BodySegment) -> void:
+	pass

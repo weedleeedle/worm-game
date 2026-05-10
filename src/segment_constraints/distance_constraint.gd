@@ -19,3 +19,6 @@ func apply(on: BodySegment, _delta: float) -> void:
 	var limit_vec := parent_to_child_vec.limit_length(max_distance)
 	# Position the child based on the parent's position?
 	on.position = on.parent_segment.position + limit_vec
+
+func setup(on: BodySegment) -> void:
+	pass

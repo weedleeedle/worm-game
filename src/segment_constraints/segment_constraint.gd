@@ -5,6 +5,8 @@ extends Resource
 
 ## Moves the nodes or whatever.
 @abstract func apply(on: BodySegment, delta: float) -> void
+## One-shot function that is run immediately after the body is constructed
+@abstract func setup(on: BodySegment) -> void
 
 # Note, we might have to do some additional steps if we have multiple constraints that apply different transformations? 
 # Or maybe we don't care?

@@ -23,3 +23,6 @@ func apply(on: BodySegment, delta: float) -> void:
 	var movement_vector := direction.normalized() * velocity
 	on.position += movement_vector * delta
 	on.rotation = direction.angle()
+
+func setup(_on: BodySegment) -> void:
+	pass

@@ -33,3 +33,6 @@ func apply(on: BodySegment, _delta: float) -> void:
 		# Clamp the angle
 		var new_vec_B_to_C := vec_B_to_A.rotated(deg_to_rad(signf(angle_BA_BC)*min_angle)).normalized() * vec_B_to_C.length()
 		on.position = node_pos_B + new_vec_B_to_C
+
+func setup(_on: BodySegment) -> void:
+	pass

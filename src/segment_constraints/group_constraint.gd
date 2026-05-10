@@ -15,3 +15,7 @@ extends SegmentConstraint
 func apply(on: BodySegment, delta: float) -> void:
 	for constraint in sub_constraints:
 		constraint.apply(on, delta)
+
+func setup(on: BodySegment) -> void:
+	for constraint in sub_constraints:
+		constraint.setup(on)
