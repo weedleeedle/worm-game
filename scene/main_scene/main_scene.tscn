@@ -7,9 +7,12 @@
 [ext_resource type="Script" uid="uid://df5fvyk41gl1y" path="res://src/segment_constraints/distance_constraint.gd" id="5_n4opw"]
 [ext_resource type="Script" uid="uid://bveufj3y2tke7" path="res://src/segment_constraints/angle_constraint.gd" id="6_1psi4"]
 [ext_resource type="Script" uid="uid://bmgkh06h8vagm" path="res://src/accessories/accessory.gd" id="7_abis2"]
+[ext_resource type="Script" uid="uid://phelohebufk8" path="res://src/accessories/scene_accessory.gd" id="8_gbtja"]
 [ext_resource type="Script" uid="uid://cwnncqtaoeyah" path="res://src/segment_constraints/follow_mouse_constraint.gd" id="9_bxhx3"]
 [ext_resource type="Script" uid="uid://cai3g7scdoai3" path="res://src/outline/outline.gd" id="10_caomg"]
+[ext_resource type="Script" uid="uid://bbx800ipu76j4" path="res://src/segment_constraints/static_position_constraint.gd" id="10_co2fn"]
 [ext_resource type="Script" uid="uid://btng3safvwlh7" path="res://src/outline/render_set.gd" id="11_gyydh"]
+[ext_resource type="Script" uid="uid://dirronacgv5jy" path="res://src/accessories/offset_accessory.gd" id="12_n4opw"]
 [ext_resource type="PackedScene" uid="uid://bru2tnj2ekgjo" path="res://component/property_manager/property_manager.tscn" id="12_wfqtb"]
 [ext_resource type="Script" uid="uid://b80mymgwap2xb" path="res://src/accessories/sub_body_accessory.gd" id="14_bxhx3"]
 
@@ -32,23 +35,29 @@ script = ExtResource("3_vxise")
 sub_constraints = Array[ExtResource("4_bxhx3")]([SubResource("Resource_5coh3"), SubResource("Resource_ijr1x"), SubResource("Resource_wfqtb")])
 metadata/_custom_type_script = "uid://c36u81uwa6gu0"
 
+[sub_resource type="Resource" id="Resource_abis2"]
+script = ExtResource("8_gbtja")
+custom_model_scene = "uid://yjdocj0aocbt"
+placement = 0.2
+metadata/_custom_type_script = "uid://phelohebufk8"
+
 [sub_resource type="Resource" id="Resource_co2fn"]
 script = ExtResource("5_n4opw")
 max_distance = 2.0
 metadata/_custom_type_script = "uid://df5fvyk41gl1y"
-
-[sub_resource type="Resource" id="Resource_vxise"]
-script = ExtResource("9_bxhx3")
-metadata/_custom_type_script = "uid://cwnncqtaoeyah"
 
 [sub_resource type="Resource" id="Resource_bxhx3"]
 script = ExtResource("6_1psi4")
 min_angle = 175.0
 metadata/_custom_type_script = "uid://bveufj3y2tke7"
 
+[sub_resource type="Resource" id="Resource_vxise"]
+script = ExtResource("10_co2fn")
+metadata/_custom_type_script = "uid://bbx800ipu76j4"
+
 [sub_resource type="Resource" id="Resource_n4opw"]
 script = ExtResource("3_vxise")
-sub_constraints = Array[ExtResource("4_bxhx3")]([SubResource("Resource_co2fn"), SubResource("Resource_vxise"), SubResource("Resource_bxhx3")])
+sub_constraints = Array[ExtResource("4_bxhx3")]([SubResource("Resource_co2fn"), SubResource("Resource_bxhx3"), SubResource("Resource_vxise")])
 metadata/_custom_type_script = "uid://c36u81uwa6gu0"
 
 [sub_resource type="Resource" id="Resource_3oinw"]
@@ -67,7 +76,21 @@ script = ExtResource("14_bxhx3")
 body_iterator = ExtResource("2_co2fn")
 constraint = SubResource("Resource_n4opw")
 render_set = SubResource("Resource_k58lk")
+accessories = Array[ExtResource("7_abis2")]([SubResource("Resource_abis2")])
+placement = 0.5
 metadata/_custom_type_script = "uid://b80mymgwap2xb"
+
+[sub_resource type="Resource" id="Resource_gbtja"]
+script = ExtResource("12_n4opw")
+sub_accessory = SubResource("Resource_1psi4")
+offset = Vector2(0, 50)
+metadata/_custom_type_script = "uid://dirronacgv5jy"
+
+[sub_resource type="Resource" id="Resource_nbf3l"]
+script = ExtResource("12_n4opw")
+sub_accessory = SubResource("Resource_1psi4")
+offset = Vector2(0, -50)
+metadata/_custom_type_script = "uid://dirronacgv5jy"
 
 [node name="Main" type="Node2D" unique_id=1412268942]
 script = ExtResource("1_wfqtb")
@@ -75,5 +98,5 @@ script = ExtResource("1_wfqtb")
 [node name="PropertyManager" parent="." unique_id=1227955740 instance=ExtResource("12_wfqtb")]
 iterator = ExtResource("2_co2fn")
 constraint = SubResource("Resource_ei0bv")
-accessories = Array[ExtResource("7_abis2")]([SubResource("Resource_1psi4")])
+accessories = Array[ExtResource("7_abis2")]([SubResource("Resource_1psi4"), SubResource("Resource_gbtja"), SubResource("Resource_nbf3l")])
 render_set = SubResource("Resource_k58lk")
