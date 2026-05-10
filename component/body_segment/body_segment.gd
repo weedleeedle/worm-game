@@ -14,8 +14,7 @@ extends Node2D
 var accessories: Array[AccessoryModel]
 
 func _ready() -> void:
-	pass
-	#_generate_circle()
+	constraint.setup(self)
 
 func _process(delta: float) -> void:
 	# Handle constraints
