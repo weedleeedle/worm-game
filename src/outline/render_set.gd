@@ -18,7 +18,7 @@ extends Resource
 		outlines = value
 		_dirty = true
 
-var _dirty: bool 
+var _dirty: bool = true
 # Cache for outlines
 var _outlines: Array[Outline]
 

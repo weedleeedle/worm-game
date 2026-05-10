@@ -12,10 +12,7 @@ static var ANGLE_INCREMENT: float = PI / END_RESOLUTION
 var body_segments: Array[BodySegment]
 var body_head: BodySegment
 
-func _process(delta: float) -> void:
-	for outline in render_set.get_outlines():
-		print("\t", outline.outline_color)
-
+func _process(_delta: float) -> void:
 	queue_redraw()
 
 func get_head() -> BodySegment:
@@ -43,12 +40,10 @@ func add_body_segment(body_segment: BodySegment) -> void:
 
 ## Body drawing functions
 func _draw() -> void:
-	_render(body_head, accessories, render_set)
+	_render(body_head, render_set)
 
-func _render(segment: BodySegment, p_accessories: Array[Accessory], p_render_set: RenderSet) -> void:
+func _render(segment: BodySegment, p_render_set: RenderSet) -> void:
 	draw_segment_head(segment, p_render_set)
-	for accessory in p_accessories:
-		accessory.draw_accessory_model()
 
 func draw_segment_head(segment: BodySegment, p_render_set: RenderSet) -> void:
 	var head_vector: Vector2
