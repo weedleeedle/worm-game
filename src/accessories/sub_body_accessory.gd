@@ -17,12 +17,7 @@ extends Accessory
 
 func init_accessory_model() -> AccessoryModel:
 	var accessory_model: AccessoryModel = accessory_model_scene.instantiate()
-	current_accessory_model = accessory_model
 	var body: Body = BodyFactory.create_body(body_iterator, constraint, accessories)
 	body.render_set = render_set
-	current_accessory_model.add_child(body)
-	return current_accessory_model
-
-func draw_accessory_model() -> void:
-	# I guess we don't need this function after all lol
-	pass
+	accessory_model.add_child(body)
+	return accessory_model

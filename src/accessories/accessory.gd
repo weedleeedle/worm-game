@@ -11,9 +11,6 @@ extends Resource
 
 var accessory_model_scene: PackedScene = preload("res://component/accessory_model/accessory_model.tscn")
 
-## Used to track which accessory model this corresponds to.
-var current_accessory_model: AccessoryModel
-
 ## By default, we initialize a regular, empty accessory model.
 ## 
 ## But you can also initialize a custom scene with an AccessoryModel root.
@@ -21,8 +18,4 @@ var current_accessory_model: AccessoryModel
 ## and using the draw_accessory_model.
 func init_accessory_model() -> AccessoryModel:
 	var accessory_model: AccessoryModel = accessory_model_scene.instantiate()
-	current_accessory_model = accessory_model
 	return accessory_model
-
-## Uses the accessory model to draw stuff!
-@abstract func draw_accessory_model() -> void

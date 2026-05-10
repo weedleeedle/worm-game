@@ -9,9 +9,4 @@ func init_accessory_model() -> AccessoryModel:
 	if custom_model == null:
 		push_error("Expected an AccessoryModel scene!")
 
-	current_accessory_model = custom_model
-	return current_accessory_model
-
-func draw_accessory_model() -> void:
-	# We don't draw anything :3
-	pass
+	return custom_model
