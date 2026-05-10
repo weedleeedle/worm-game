@@ -20,4 +20,12 @@ func init_accessory_model() -> AccessoryModel:
 	var body: Body = BodyFactory.create_body(body_iterator, constraint, accessories)
 	body.render_set = render_set
 	accessory_model.add_child(body)
+	# As a precaution, force the head to adopt the transform of the main body segment it's attached to.
+	# I'm actually shocked this worked lmao
+	var remote_transform: RemoteTransform2D = RemoteTransform2D.new()
+	accessory_model.add_child(remote_transform)
+	# Attach the remote transform to the path when the body gets added to the scene
+	body.get_head().tree_entered.connect(func ():
+		remote_transform.remote_path = body.get_head().get_path()
+	)
 	return accessory_model
