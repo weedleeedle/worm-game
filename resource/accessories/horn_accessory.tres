@@ -73,7 +73,6 @@ placement = 0.35
 metadata/_custom_type_script = "uid://dirronacgv5jy"
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("1_l8p3j")
 mirror_y = true
 sub_accessory = SubResource("Resource_dksqo")
