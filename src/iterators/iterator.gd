@@ -28,10 +28,23 @@ class IteratorReturn:
 	func is_halt() -> bool:
 		return halt
 
-## Next function returns either a value, or a HALT_RETURN.
-@abstract
-func next() -> IteratorReturn
 
-## Resets the state of the iterator.
+## Stateful iterator instance that is created by an iterator.
+## 
+## Is this confusing? Nah. Not at all :)
+##
+## To elaborate, what we call an "iterator" here is not an actual iterator.
+## It's the template/settings needed to create an iterator. These resources are supposed to be 
+## stateless so they can be passed around by reference. `create_iterator()` is used to create an actual stateful iterator that is NOT intended to be shared, even though it is RefCounted.
 @abstract
-func reset() -> void
+class IteratorInstance extends RefCounted:
+	## Next function returns either a value, or a HALT_RETURN.
+	@abstract
+	func next() -> IteratorReturn
+
+	## Resets the state of the iterator.
+	@abstract
+	func reset() -> void
+
+@abstract
+func create_iterator() -> IteratorInstance

@@ -2,6 +2,35 @@
 class_name ExpressionIterator
 extends Iterator
 
+class ExpressionIteratorInstance extends IteratorInstance:
+	var expression: Expression
+	var start: float
+	var end: float
+	var steps: int
+	var i: float
+	
+	func _init(p_expression: Expression, p_start := 0.0, p_end := 0.0, p_steps := 1):
+		expression = p_expression
+		start = p_start
+		end = p_end
+		steps =	p_steps
+
+	func next() -> IteratorReturn:
+		if i > steps:
+			return Iterator.HALT_RETURN
+
+		var width = end - start
+		var index = start + width * i / steps
+		var result = expression.execute([index])
+		if expression.has_execute_failed():
+			return Iterator.HALT_RETURN
+
+		i += 1
+		return IteratorReturn.new(result)
+
+	func reset() -> void:
+		i = 0
+
 ## The expression to use to generate the values.
 ## 
 ## The expression should have one variable, `i`, which represents the index 
@@ -12,10 +41,8 @@ extends Iterator
 		return expression
 	set(value):
 		if value != expression:
-			expression = value
 			_expression_dirty = true
-			reset()
-			emit_changed()
+			expression = value
 
 ## Where to start the evaluation
 @export var start_range: float:
@@ -24,9 +51,6 @@ extends Iterator
 	set(value):
 		if start_range != value:
 			start_range = value
-			reset()
-			emit_changed()
-
 
 ## Where to end the range.
 @export var end_range: float:
@@ -35,8 +59,6 @@ extends Iterator
 	set(value):
 		if end_range != value:
 			end_range = value
-			reset()
-			emit_changed()
 
 ## How many numbers to evaluate the expression for.
 @export var steps: int:
@@ -45,12 +67,9 @@ extends Iterator
 	set(value):
 		if steps != value:
 			steps = value
-			reset()
-			emit_changed()
 
-var i: int = 0
-var expression_parsed: Expression
 var _expression_dirty: bool
+var _expression: Expression = Expression.new()
 
 func _init(p_expression := "", p_start_range := 0.0, p_end_range := 0.0, p_steps = 1) -> void:
 	expression = p_expression
@@ -58,27 +77,8 @@ func _init(p_expression := "", p_start_range := 0.0, p_end_range := 0.0, p_steps
 	end_range = p_end_range
 	steps = p_steps
 
-func _run_after_exports_initialized():
-	expression_parsed = Expression.new()
-	# Use i as the variable for the expression
-	expression_parsed.parse(expression, ["i"])
-
-func next() -> IteratorReturn:
+func create_iterator() -> ExpressionIteratorInstance:
 	if _expression_dirty:
-		_run_after_exports_initialized()
-		_expression_dirty = false
-		
-	if i > steps:
-		return Iterator.HALT_RETURN
-
-	var width = end_range - start_range
-	var index = start_range + width * i / steps
-	var result = expression_parsed.execute([index])
-	if expression_parsed.has_execute_failed():
-		return Iterator.HALT_RETURN
-
-	i += 1
-	return IteratorReturn.new(result)
-
-func reset() -> void:
-	i = 0
+		_expression.parse(expression, ["i"])
+	
+	return ExpressionIteratorInstance.new(_expression, start_range, end_range, steps)

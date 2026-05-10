@@ -9,12 +9,11 @@ var iterator_results: Array[float]
 
 func _init(iterator: Iterator) -> void:
 	iterator_results = Array([], TYPE_FLOAT, "", null)
-	var val := iterator.next()
+	var iterator_instance: Iterator.IteratorInstance = iterator.create_iterator()
+	var val: Iterator.IteratorReturn = iterator_instance.next()
 	while !val.is_halt():
 		iterator_results.push_back(val.get_value())
-		val = iterator.next()
-
-	iterator.reset()
+		val = iterator_instance.next()
 
 func size() -> int:
 	return iterator_results.size()
@@ -50,5 +49,3 @@ func derivative(idx: float) -> float:
 	var second_val := get_val(second_idx)
 
 	return second_val - first_val
-
-

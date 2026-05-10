@@ -21,9 +21,11 @@ var y_iterator_result: IteratorCollector
 
 func apply(on: BodySegment, _delta: float) -> void:
 	if x_iterator_result == null:
+		# These don't consume the iterator anymore
 		x_iterator_result = IteratorCollector.new(x_iterator)
 
 	if y_iterator_result == null:
+		# These don't consume the iterator anymore
 		y_iterator_result = IteratorCollector.new(y_iterator)
 
 	# This is such a huge waste of performance lol. We should figure out how to cache this (probably in the body segment itself)

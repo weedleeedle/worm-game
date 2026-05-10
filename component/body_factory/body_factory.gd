@@ -10,8 +10,9 @@ extends Node
 func create_body(body_iterator: Iterator, constraint: SegmentConstraint, accessories: Array[Accessory]) -> Body:
 	# Create the body 
 	var body: Body = body_scene.instantiate()
+	var iterator_instance: Iterator.IteratorInstance = body_iterator.create_iterator()
 
-	var iter_result = body_iterator.next()
+	var iter_result = iterator_instance.next()
 	if iter_result.is_halt():
 		push_error("Attempted to create a body with an empty body_iterator!")
 
@@ -20,7 +21,7 @@ func create_body(body_iterator: Iterator, constraint: SegmentConstraint, accesso
 		new_segment.constraint = constraint
 		new_segment.radius = iter_result.get_value()
 		body.add_body_segment(new_segment)
-		iter_result = body_iterator.next()
+		iter_result = iterator_instance.next()
 
 	_init_accessories(body, accessories)
 	return body
