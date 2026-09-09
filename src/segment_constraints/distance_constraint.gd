@@ -10,6 +10,9 @@ extends SegmentConstraint
 			max_distance = value
 			emit_changed()
 
+func _init(p_max_distance := 0.0) -> void:
+	max_distance = p_max_distance
+
 func apply(on: BodySegment, _delta: float) -> void:
 	# Head doesn't get any constraints
 	if on.is_head():

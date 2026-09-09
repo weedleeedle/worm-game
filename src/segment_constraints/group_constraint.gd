@@ -12,6 +12,9 @@ extends SegmentConstraint
 				constraint.changed.connect(emit_changed)
 			emit_changed()
 
+func _init(p_sub_constraints := []) -> void:
+	sub_constraints = p_sub_constraints
+
 func apply(on: BodySegment, delta: float) -> void:
 	for constraint in sub_constraints:
 		constraint.apply(on, delta)

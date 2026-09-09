@@ -10,6 +10,9 @@ extends SegmentConstraint
 			min_angle = value
 			emit_changed()
 
+func _init(p_min_angle := 0.0) -> void:
+	min_angle = p_min_angle
+
 func apply(on: BodySegment, _delta: float) -> void:
 	# Head doesn't get any constraints
 	if on.is_head():

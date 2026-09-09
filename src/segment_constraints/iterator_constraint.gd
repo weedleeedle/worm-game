@@ -19,6 +19,10 @@ extends SegmentConstraint
 var x_iterator_result: IteratorCollector
 var y_iterator_result: IteratorCollector
 
+func _init(p_x_iterator: Iterator = null, p_y_iterator: Iterator = null) -> void:
+	x_iterator = p_x_iterator
+	y_iterator = p_y_iterator
+
 func apply(on: BodySegment, _delta: float) -> void:
 	if x_iterator_result == null:
 		# These don't consume the iterator anymore

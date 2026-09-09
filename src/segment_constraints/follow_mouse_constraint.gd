@@ -7,6 +7,10 @@ extends SegmentConstraint
 ## The max move speed for the head
 @export var max_velocity: float = 350.0
 
+func _init(p_distance_scaling := 1.0, p_max_velocity := 300.0 ) -> void:
+	distance_scaling = p_distance_scaling
+	max_velocity = p_max_velocity
+
 func apply(on: BodySegment, delta: float) -> void:
 	# Don't do anything if this isn't the head.
 	if !on.is_head():
@@ -16,7 +20,6 @@ func apply(on: BodySegment, delta: float) -> void:
 	var direction := on.owning_body.get_local_mouse_position() - on.position
 	var distance := direction.length()
 	# We approach zero as we near the target
-	#var weight := (DISTANCE_SCALING * distance) / sqrt(1 + pow(DISTANCE_SCALING * distance, 2.0))
 	var weight := sqrt(distance_scaling * distance)
 	# We probably want to do some kind of easing once we get close to the mouse. We'll see.
 	var velocity := lerpf(0, max_velocity, weight)
