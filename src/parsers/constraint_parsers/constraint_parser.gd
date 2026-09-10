@@ -7,6 +7,7 @@ var PARSERS = {
 	"min_angle": AngleConstraintParser.new(),
 	"follow_mouse": FollowMouseConstraintParser.new(),
 	"group": GroupConstraintParser.new(),
+	"iterator": IteratorConstraintParser.new(),
 }
 
 

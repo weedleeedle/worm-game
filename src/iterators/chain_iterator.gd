@@ -39,5 +39,8 @@ class ChainIteratorInstance extends IteratorInstance:
 			for iterator in iterators:
 				iterator.changed.connect(emit_changed)
 
+func _init(p_iterators: Array[Iterator] = []) -> void:
+	iterators = p_iterators
+
 func create_iterator() -> IteratorInstance:
 	return ChainIteratorInstance.new(iterators)

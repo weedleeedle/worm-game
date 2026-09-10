@@ -26,5 +26,8 @@ class ArrayIteratorInstance extends IteratorInstance:
 	set(value):
 		array = value
 
+func _init(p_array: Array[float] = []) -> void:
+	array = p_array
+
 func create_iterator() -> IteratorInstance:
 	return ArrayIteratorInstance.new(array)
