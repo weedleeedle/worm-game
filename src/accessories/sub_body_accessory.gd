@@ -2,23 +2,16 @@
 class_name SubBodyAccessory
 extends Accessory
 
-## Gets the size of each body part.
-@export var body_iterator: Iterator
-
-## The constraint to apply to the body.
-@export var constraint: SegmentConstraint
-
-## Instructions for rendering the body part.
-@export var render_set: RenderSet
-
-@export var accessories: Array[Accessory]
+@export var body_blueprint: BodyBlueprint
 
 @export var z_index: int = 0
 
+func _init(p_body_blueprint: BodyBlueprint):
+	body_blueprint = p_body_blueprint
+
 func init_accessory_model() -> AccessoryModel:
 	var accessory_model: AccessoryModel = accessory_model_scene.instantiate()
-	var body: Body = BodyFactory.create_body(body_iterator, constraint, accessories)
-	body.render_set = render_set
+	var body: Body = body_blueprint.build_body()
 	accessory_model.add_child(body)
 	# As a precaution, force the head to adopt the transform of the main body segment it's attached to.
 	# I'm actually shocked this worked lmao

@@ -4,6 +4,9 @@ extends Accessory
 
 @export_file("*.tscn") var custom_model_scene: String
 
+func _init(p_custom_model_scene: String = "") -> void:
+	custom_model_scene = p_custom_model_scene
+
 func init_accessory_model() -> AccessoryModel:
 	var custom_model: AccessoryModel = load(custom_model_scene).instantiate()
 	if custom_model == null:

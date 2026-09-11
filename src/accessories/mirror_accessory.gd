@@ -8,6 +8,11 @@ extends Accessory
 
 @export var sub_accessory: Accessory
 
+func _init(p_sub_accessory: Accessory = null, p_mirror_x := false, p_mirror_y := false) -> void:
+	sub_accessory = p_sub_accessory
+	mirror_x = p_mirror_x
+	mirror_y = p_mirror_y
+	
 func init_accessory_model() -> AccessoryModel:
 	var mirror_accessory_root = accessory_model_scene.instantiate()
 	var mirror_accessory_normal = accessory_model_scene.instantiate()

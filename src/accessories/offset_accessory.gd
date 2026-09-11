@@ -14,6 +14,19 @@ extends Accessory
 
 @export var skew: float = 0.0
 
+func _init(
+	p_sub_accessory: Accessory = null,
+	p_offset := Vector2.ZERO,
+	p_rotation := 0.0,
+	p_scale := Vector2.ONE,
+	p_skew = 0.0
+	) -> void:
+		sub_accessory = p_sub_accessory
+		offset = p_offset
+		rotation = p_rotation
+		scale = p_scale
+		skew = p_skew
+
 func init_accessory_model() -> AccessoryModel:
 	var sub_accessory_model = sub_accessory.init_accessory_model()
 	var accessory_model = accessory_model_scene.instantiate()
