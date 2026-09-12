@@ -8,3 +8,9 @@ func parse_json(json_obj: Dictionary) -> Iterator:
 		return null
 
 	return ArrayIterator.new(array)
+
+func serialize(iterator: Iterator) -> Dictionary:
+	var array_iterator: ArrayIterator = iterator as ArrayIterator
+	return {
+		"array": array_iterator.array
+	}	

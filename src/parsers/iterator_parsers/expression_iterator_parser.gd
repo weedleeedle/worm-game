@@ -24,3 +24,14 @@ func parse_json(json_obj: Dictionary) -> Iterator:
 		return null
 
 	return ExpressionIterator.new(expression, start, end, steps)
+
+func serialize(iterator: Iterator) -> Dictionary:
+	# We know that this is already an ExpressionIterator bc of IteratorParser.
+	var expr_iterator: ExpressionIterator = iterator as ExpressionIterator
+
+	return {
+		"expression": expr_iterator.expression,
+		"start": expr_iterator.start_range,
+		"end": expr_iterator.end_range,
+		"steps": expr_iterator.steps
+	}

@@ -15,3 +15,16 @@ func parse_json(json_obj: Dictionary) -> Iterator:
 		iterators.push_back(iterator)
 	
 	return ChainIterator.new(iterators)
+
+func serialize(iterator: Iterator) -> Dictionary:
+	var chain_iterator: ChainIterator = iterator as ChainIterator
+
+	var sub_iterators: Array[Dictionary] = []
+	var iterator_serializer = IteratorParser.new()
+
+	for iterator in chain_iterator.iterators:
+		sub_iterators.push_back(iterator_serializer.serialize(iterator))
+
+	return {
+		"iterators": sub_iterators
+	}
