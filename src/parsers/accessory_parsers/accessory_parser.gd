@@ -8,6 +8,13 @@ var PARSERS = {
 	"subbody": SubBodyAccessoryParser.new(),
 }
 
+var TYPE_NAMES = {
+	"SceneAccessory": "scene",
+	"OffsetAccessory": "offset",
+	"MirrorAccessory": "mirror",
+	"SubBodyAccessory": "subbody",
+}
+
 func parse_json(json_obj: Dictionary) -> Accessory:
 	var accessory_id = json_obj.get("accessory_type")
 	if accessory_id == null:
@@ -33,3 +40,16 @@ func parse_json(json_obj: Dictionary) -> Accessory:
 	var accessory := parser.parse_json(data)
 	accessory.placement = placement
 	return accessory
+
+func serialize(accessory: Accessory) -> Dictionary:
+	var accessory_class_name = accessory.get_script().get_global_name()
+
+	var type_name = TYPE_NAMES.get(accessory_class_name)
+	var serializer = PARSERS.get(type_name)
+
+	return {
+		"accessory_type": type_name,
+		"data": serializer.serialize(accessory)
+	}
+
+

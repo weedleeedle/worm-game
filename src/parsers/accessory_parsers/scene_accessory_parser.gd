@@ -15,6 +15,20 @@ func parse_json(json_obj: Dictionary) -> Accessory:
 	var full_scene_path := find_full_scene_name(json_obj.get("scene"))
 	return SceneAccessory.new(full_scene_path)
 
+func serialize(accessory: Accessory) -> Dictionary:
+	var scene_accessory: SceneAccessory = accessory as SceneAccessory
+
+	var scene_tag = SCENES.find_key(scene_accessory.custom_model_scene)
+
+	if scene_tag == null:
+		push_error("No tag found for the scene ", scene_accessory.custom_model_scene)
+		return {}
+
+	return {
+		"scene": scene_tag
+	}
+
+
 func find_full_scene_name(key: String) -> String:
 	var full_path = SCENES.get(key)
 	if full_path == null:

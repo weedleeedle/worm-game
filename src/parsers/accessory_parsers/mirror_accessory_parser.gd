@@ -20,4 +20,12 @@ func parse_json(json_obj: Dictionary) -> Accessory:
 	var sub_accessory := AccessoryParser.new().parse_json(sub_accessory_json)
 	return MirrorAccessory.new(sub_accessory, mirror_x, mirror_y)
 
+func serialize(accessory: Accessory) -> Dictionary
+	var mirror_accessory: MirrorAccessory = accessory as MirrorAccessory
+
+	return {
+		"sub_accessory": AccessoryParser.new().serialize(mirror_accessory.sub_accessory),
+		"mirror_x": mirror_accessory.mirror_x,
+		"mirror_y": mirror_accessory.mirror_y,
+	}
 

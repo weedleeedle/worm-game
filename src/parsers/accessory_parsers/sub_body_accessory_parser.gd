@@ -11,4 +11,9 @@ func parse_json(json_obj: Dictionary) -> Accessory:
 
 	return SubBodyAccessory.new(sub_body_blueprint)
 
+func serialize(accessory: Accessory) -> Dictionary:
+	var sub_body_accessory: SubBodyAccessory = accessory as SubBodyAccessory
 
+	return {
+		"body": BodyBlueprintParser.new().serialize(sub_body_accessory.body_blueprint)
+	}
