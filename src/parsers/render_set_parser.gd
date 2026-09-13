@@ -33,3 +33,21 @@ func parse_outline(outline_json: Dictionary) -> Outline:
 
 	return Outline.new(color, width)
 
+func serialize(render_set: RenderSet) -> Dictionary:
+	var outlines: Array[Dictionary] = []
+
+	for outline in render_set.outlines:
+		outlines.push_back(serialize_outline(outline))
+
+	return {
+		"fill_color": render_set.fill_color.to_html(),
+		"outlines": outlines
+	}
+
+func serialize_outline(outline: Outline) -> Dictionary:
+	return {
+		"width": outline.outline_width,
+		"color": outline.outline_color.to_html(),
+	}
+
+
