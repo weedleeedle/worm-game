@@ -4,7 +4,8 @@ extends Accessory
 
 @export var body_blueprint: BodyBlueprint
 
-@export var z_index: int = 0
+# Unused?
+#@export var z_index: int = 0
 
 func _init(p_body_blueprint: BodyBlueprint):
 	body_blueprint = p_body_blueprint
