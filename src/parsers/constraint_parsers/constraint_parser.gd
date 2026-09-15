@@ -10,6 +10,13 @@ var PARSERS = {
 	"iterator": IteratorConstraintParser.new(),
 }
 
+var TYPE_NAMES = {
+	"DistanceConstraint": "max_distance",
+	"AngleConstraint": "min_angle",
+	"FollowMouseConstraint": "follow_mouse",
+	"GroupConstraint": "group",
+	"IteratorConstraint": "iterator"
+}
 
 func parse_json(json_obj: Dictionary) -> SegmentConstraint:
 	var constraint_id = json_obj.get("constraint_type")
@@ -33,3 +40,15 @@ func parse_json(json_obj: Dictionary) -> SegmentConstraint:
 	# We could also maybe treat this as a custom data type and make it statically typed instead of having all these checks...
 	# But maybe that's just even more work for what we're already *doing.*
 	return parser.parse_json(data)
+
+func serialize(constraint: SegmentConstraint) -> Dictionary:
+	var constraint_class_name = constraint.get_script().get_global_name()
+
+	var type_name = TYPE_NAMES.get(constraint_class_name)
+	var serializer = PARSERS.get(type_name)
+
+	return {
+		"constraint_type": type_name,
+		"data": serializer.serialize(constraint)
+	}
+	

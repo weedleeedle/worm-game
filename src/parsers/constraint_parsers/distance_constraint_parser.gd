@@ -9,3 +9,13 @@ func parse_json(json_obj: Dictionary) -> SegmentConstraint:
 		return null
 
 	return DistanceConstraint.new(max_distance)
+
+func serialize(constraint: SegmentConstraint) -> Dictionary:
+	var distance_constraint: DistanceConstraint = constraint as DistanceConstraint
+
+	return {
+		"max_distance": distance_constraint.max_distance
+	}
+
+
+

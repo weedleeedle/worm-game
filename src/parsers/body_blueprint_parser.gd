@@ -23,6 +23,21 @@ func parse_json(json_obj: Dictionary) -> BodyBlueprint:
 		accessories,
 		render_set)
 
+func serialize(body: BodyBlueprint) -> Dictionary:
+
+	var accessories: Array[Dictionary] = []
+	var accessory_parser: AccessoryParser = AccessoryParser.new()
+
+	for accessory in body.accessories:
+		accessories.push_back(accessory_parser.serialize(accessory))
+
+	return {
+		"iterator": IteratorParser.new().serialize(body.body_iterator),
+		"constraint": ConstraintParser.new().serialize(body.constraint),
+		"accessories": accessories,
+		"render_set": RenderSetParser.new().serialize(body.render_set)
+	}
+
 func get_field(json_obj: Dictionary, key: String) -> Variant:
 	if !json_obj.has(key):
 		push_error("Expected '", key, "' field")

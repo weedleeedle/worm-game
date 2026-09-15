@@ -8,3 +8,10 @@ func parse_json(json_obj: Dictionary) -> SegmentConstraint:
 		return null
 
 	return AngleConstraint.new(min_angle)
+
+func serialize(constraint: SegmentConstraint) -> Dictionary:
+	var angle_constraint: AngleConstraint = constraint as AngleConstraint
+
+	return {
+		"min_angle": angle_constraint.min_angle
+	}

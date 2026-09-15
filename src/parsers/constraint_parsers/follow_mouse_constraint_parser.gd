@@ -14,4 +14,10 @@ func parse_json(json_obj: Dictionary) -> SegmentConstraint:
 
 	return FollowMouseConstraint.new(distance_scaling, max_velocity)
 
+func serialize(constraint: SegmentConstraint) -> Dictionary:
+	var follow_mouse_constraint: FollowMouseConstraint = constraint as FollowMouseConstraint
 
+	return {
+		"distance_scaling": follow_mouse_constraint.distance_scaling,
+		"max_velocity": follow_mouse_constraint.max_velocity
+	}
